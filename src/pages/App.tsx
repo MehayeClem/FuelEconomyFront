@@ -1,11 +1,5 @@
-import { Exemple } from '../components/exemple';
-
-function App() {
-	return (
-		<div>
-			<Exemple />
-		</div>
-	);
-}
+const App = () => {
+	return <main>Hello World</main>;
+};
 
 export default App;
