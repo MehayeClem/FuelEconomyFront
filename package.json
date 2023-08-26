@@ -1,40 +1,40 @@
 {
-	"name": "fueleconomy",
-	"private": true,
-	"version": "1.0.0",
-	"type": "module",
+	"name": "fueleconomyfront",
+	"version": "2.0.0",
+	"description": "FuelEconomy est une application qui recense toutes les stations d'essences de France",
+	"main": "index.js",
 	"scripts": {
-		"dev": "vite",
-		"build": "tsc && vite build",
-		"lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-		"preview": "vite preview",
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint",
 		"prettier": "prettier --write ."
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/MehayeClem/FuelEconomyFront"
+		"url": "git+https://github.com/MehayeClem/FuelEconomyFront.git"
 	},
-	"author": "MehayeClem - SkynixFr",
+	"keywords": [
+		"Fuel",
+		"Economy",
+		"FuelEconomy"
+	],
+	"author": "MehayeClem, SkynixFr",
 	"license": "ISC",
 	"bugs": {
 		"url": "https://github.com/MehayeClem/FuelEconomyFront/issues"
 	},
 	"homepage": "https://github.com/MehayeClem/FuelEconomyFront#readme",
 	"dependencies": {
+		"next": "^13.4.19",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@types/react": "^18.0.28",
-		"@types/react-dom": "^18.0.11",
-		"@typescript-eslint/eslint-plugin": "^5.57.1",
-		"@typescript-eslint/parser": "^5.57.1",
-		"@vitejs/plugin-react-swc": "^3.0.0",
-		"eslint": "^8.38.0",
-		"eslint-plugin-react-hooks": "^4.6.0",
-		"eslint-plugin-react-refresh": "^0.3.4",
-		"prettier": "^2.8.8",
-		"typescript": "^5.0.2",
-		"vite": "^4.3.2"
+		"@types/node": "^20.5.6",
+		"@types/react": "^18.2.21",
+		"@types/react-dom": "^18.2.7",
+		"prettier": "^3.0.2",
+		"typescript": "^5.2.2"
 	}
 }
