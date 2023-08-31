@@ -3,8 +3,10 @@ import axios from 'axios';
 import { ZodType, z } from 'zod';
 import Form from '../../components/form';
 import { RegisterFormData, InputFields } from '../../types/form';
-
+import { useRouter } from 'next/router';
 const Register = () => {
+	const router = useRouter();
+
 	const registerValidationSchema: ZodType<RegisterFormData> = z
 		.object({
 			username: z
@@ -69,16 +71,31 @@ const Register = () => {
 			register: 'confirmPassword'
 		}
 	];
-	const submitData = (data: RegisterFormData) => {
-		console.log('Data : ', data);
+	const submitData = async (data: RegisterFormData) => {
+		const { username, email, password } = data;
+		try {
+			await axios.post('http://localhost:8081/api/v1/auth/register', {
+				username: username,
+				email: email,
+				password: password
+			});
+			router.push('/login');
+		} catch (error) {
+			if (axios.isAxiosError(error)) {
+				console.error(error.response);
+			}
+		}
 	};
 
 	return (
-		<Form
-			validationSchema={registerValidationSchema}
-			onSubmit={submitData}
-			formFields={formFields}
-		/>
+		<section>
+			<h1>Register page</h1>
+			<Form
+				validationSchema={registerValidationSchema}
+				onSubmit={submitData}
+				formFields={formFields}
+			/>
+		</section>
 	);
 };
 
