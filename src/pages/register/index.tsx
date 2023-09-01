@@ -4,7 +4,8 @@ import { ZodType, z } from 'zod';
 import Form from '../../components/form';
 import { RegisterFormData, InputFields } from '../../types/form';
 import { useRouter } from 'next/router';
-const Register = () => {
+
+export default function Register() {
 	const router = useRouter();
 
 	const registerValidationSchema: ZodType<RegisterFormData> = z
@@ -97,6 +98,4 @@ const Register = () => {
 			/>
 		</section>
 	);
-};
-
-export default Register;
+}

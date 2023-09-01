@@ -6,7 +6,7 @@ import Form from '../../components/form';
 import { LoginFormData, InputFields } from '../../types/form';
 import Cookies from 'js-cookie';
 
-const Login = () => {
+export default function Login() {
 	const router = useRouter();
 
 	const loginValidationSchema: ZodType<LoginFormData> = z.object({
@@ -74,6 +74,4 @@ const Login = () => {
 			></Form>
 		</section>
 	);
-};
-
-export default Login;
+}
