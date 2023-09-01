@@ -25,3 +25,8 @@ export type RegisterFormData = {
 	password: string;
 	confirmPassword: string;
 };
+
+export type LoginFormData = {
+	email: string;
+	password: string;
+};
