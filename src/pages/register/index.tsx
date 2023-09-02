@@ -89,7 +89,7 @@ export default function Register() {
 	};
 
 	return (
-		<section>
+		<section className="register container">
 			<h1>Register page</h1>
 			<Form
 				validationSchema={registerValidationSchema}
