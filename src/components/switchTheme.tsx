@@ -1,7 +1,7 @@
 import { useTheme } from 'next-themes';
 import { useState, useEffect } from 'react';
 
-export default function SwitchTheme() {
+export default function ThemeSwitcher() {
 	const [mounted, setMounted] = useState(false);
 	const { theme, setTheme } = useTheme();
 
@@ -16,13 +16,22 @@ export default function SwitchTheme() {
 	return (
 		<div>
 			Theme: {theme}
-			<button
+			{/* <button
 				onClick={() => {
 					theme === 'light' ? setTheme('dark') : setTheme('light');
 				}}
 			>
 				Switch theme
-			</button>
+			</button> */}
+			<select value={theme} onChange={e => setTheme(e.target.value)}>
+				<option value="system">System</option>
+				{mounted && (
+					<>
+						<option value="dark">Dark</option>
+						<option value="light">Light</option>
+					</>
+				)}
+			</select>
 		</div>
 	);
 }

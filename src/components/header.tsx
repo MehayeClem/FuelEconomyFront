@@ -1,9 +1,9 @@
-import SwitchTheme from './switchTheme';
+import ThemeSwitcher from './switchTheme';
 export default function Header() {
 	return (
 		<div>
 			Header
-			<SwitchTheme />
+			<ThemeSwitcher />
 		</div>
 	);
 }
