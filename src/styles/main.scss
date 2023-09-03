@@ -1,0 +1,42 @@
+@import './base/normalize';
+@import './utils/variables';
+
+body {
+	background-color: var(--main-background);
+}
+
+.button {
+	background-color: var(--main-background);
+	color: var(--primary-color);
+}
+
+.card {
+	background-color: var(--card-background);
+
+	.headline {
+		color: var(--primary-color);
+	}
+
+	.subheadline {
+		color: var(--secondary-color);
+	}
+
+	.text {
+		color: var(--tertiary-color);
+	}
+}
+
+.error {
+	background-color: var(--error-color);
+	color: var(--primary-color);
+}
+
+.success {
+	background-color: var(--success-color);
+	color: var(--primary-color);
+}
+
+.warning {
+	background-color: var(--warning-color);
+	color: var(--primary-color);
+}
