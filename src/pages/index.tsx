@@ -1,4 +1,14 @@
+import { useEffect } from 'react';
+import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
+
 export default function Home() {
+	useEffect(() => {
+		if (Cookies.get('refresh-token')) {
+			toast.success('Bienvenu !');
+		}
+	}, []);
+
 	return (
 		<>
 			<h1>Exemple de Thème Sombre</h1>

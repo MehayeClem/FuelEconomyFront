@@ -5,6 +5,9 @@ import { ZodType, z } from 'zod';
 import Form from '../../components/form';
 import { LoginFormData, InputFields } from '../../types/form';
 import Cookies from 'js-cookie';
+import Image from 'next/image';
+import Link from 'next/link';
+import FeLogo from '../../public/images/FeLogo.png';
 
 export default function Login() {
 	const router = useRouter();
@@ -18,7 +21,7 @@ export default function Login() {
 			})
 			.regex(
 				/^(?=.*[A-Z])(?=.*\d)(?=.*\W)[A-Za-z\d\W]{5,20}$/,
-				'Le mot de passe doit respecter les critères suivant : 1 caractère spécial, 1 majuscule, 1 chiffre, 5 caractères minimum'
+				'Le mot de passe doit respecter les critères suivants : 1 caractère spécial, 1 majuscule, 1 chiffre, 5 caractères minimum'
 			)
 	});
 
@@ -28,14 +31,16 @@ export default function Login() {
 			name: 'email',
 			id: 'email',
 			required: true,
-			register: 'email'
+			register: 'email',
+			label: 'Email'
 		},
 		{
 			type: 'password',
 			name: 'password',
 			id: 'password',
 			required: true,
-			register: 'password'
+			register: 'password',
+			label: 'Mot de passe'
 		}
 	];
 
@@ -65,13 +70,26 @@ export default function Login() {
 	};
 
 	return (
-		<section>
-			<h1>Login page</h1>
-			<Form
-				validationSchema={loginValidationSchema}
-				onSubmit={submitData}
-				formFields={formFields}
-			></Form>
+		<section className="login__container">
+			<div className="form__card">
+				<div className="form__title">
+					<Image src={FeLogo} alt="FuelEconomy logo" priority></Image>
+					<h1>Connexion</h1>
+				</div>
+
+				<Form
+					validationSchema={loginValidationSchema}
+					onSubmit={submitData}
+					formFields={formFields}
+				></Form>
+
+				<div className="form__link">
+					<div>
+						Pas encore de compte ?
+						<Link href="/register">Créer son compte</Link>
+					</div>
+				</div>
+			</div>
 		</section>
 	);
 }

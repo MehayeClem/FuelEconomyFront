@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormData } from '../types/form';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function Form<T extends FieldValues>({
 	validationSchema,
@@ -16,29 +17,46 @@ export default function Form<T extends FieldValues>({
 		resolver: zodResolver(validationSchema)
 	});
 
+	const [passwordVisible, setPasswordVisible] = useState(false);
+
+	function handleShowPassword() {
+		setPasswordVisible(prevPasswordVisible => !prevPasswordVisible);
+	}
+
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
+		<form onSubmit={handleSubmit(onSubmit)} className="form__content">
 			{formFields.map(field => (
-				<div key={field.id}>
+				<div key={field.id} className="input__container">
 					{field.label && (
 						<label htmlFor={field.id}> {field.label} </label>
 					)}
-					<input
-						{...register(field.register)}
-						type={field.type}
-						name={field.name}
-						id={field.id}
-						required={field.required}
-						placeholder={field.placeholder}
-						readOnly={field.readonly}
-						value={field.value}
-					/>
+					<div className="input__field">
+						<input
+							{...register(field.register)}
+							type={!passwordVisible ? field.type : 'text'}
+							name={field.name}
+							id={field.id}
+							required={field.required}
+							placeholder={field.placeholder}
+							readOnly={field.readonly}
+							value={field.value}
+						/>
+						{field.type === 'password' && (
+							<button type="button" onClick={handleShowPassword}>
+								{' '}
+								{passwordVisible ? <FaEye /> : <FaEyeSlash />}
+							</button>
+						)}
+					</div>
+
 					{errors[field.register] && (
-						<span>{errors[field.register]?.message?.toString()}</span>
+						<div>{errors[field.register]?.message?.toString()}</div>
 					)}
 				</div>
 			))}
-			<button>Submit</button>
+			<div className="form__btn">
+				<button>Connexion</button>
+			</div>
 		</form>
 	);
 }

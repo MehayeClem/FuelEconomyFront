@@ -1,42 +1,18 @@
 @import './base/normalize';
 @import './utils/variables';
+@import './utils/placeholder';
+@import './pages/login';
+@import './layout/header';
 
 body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
 	background-color: var(--main-background);
-}
-
-.button {
-	background-color: var(--main-background);
-	color: var(--primary-color);
-}
-
-.card {
-	background-color: var(--card-background);
-
-	.headline {
-		color: var(--primary-color);
-	}
-
-	.subheadline {
-		color: var(--secondary-color);
-	}
-
-	.text {
-		color: var(--tertiary-color);
-	}
-}
-
-.error {
-	background-color: var(--error-color);
-	color: var(--primary-color);
-}
-
-.success {
-	background-color: var(--success-color);
-	color: var(--primary-color);
-}
-
-.warning {
-	background-color: var(--warning-color);
-	color: var(--primary-color);
+	font-family: var(--font-family);
+	color: var(--text-color);
+	font-size: 1em;
+	position: relative;
+	transition: 0.5s ease-in-out;
 }

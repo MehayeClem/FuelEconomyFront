@@ -1,7 +1,7 @@
 import ThemeSwitcher from './switchTheme';
 export default function Header() {
 	return (
-		<div>
+		<div className="menu">
 			Header
 			<ThemeSwitcher />
 		</div>
