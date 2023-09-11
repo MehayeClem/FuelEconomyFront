@@ -5,6 +5,7 @@ import { ZodType, z } from 'zod';
 import Form from '../../components/form';
 import { LoginFormData, InputFields } from '../../types/form';
 import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
 import Image from 'next/image';
 import Link from 'next/link';
 import FeLogo from '../../public/images/FeLogo.png';
@@ -64,7 +65,11 @@ export default function Login() {
 			router.push('/');
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
-				console.error(error.response);
+				const errorMessage =
+					error.response?.data || 'Une erreur est survenue';
+				toast.error(errorMessage.toString(), {
+					pauseOnHover: false
+				});
 			}
 		}
 	};
@@ -81,11 +86,12 @@ export default function Login() {
 					validationSchema={loginValidationSchema}
 					onSubmit={submitData}
 					formFields={formFields}
+					labelButton="Connexion"
 				></Form>
 
 				<div className="form__link">
 					<div>
-						Pas encore de compte ?
+						<span>Pas encore de compte ?</span>
 						<Link href="/register">Créer son compte</Link>
 					</div>
 				</div>

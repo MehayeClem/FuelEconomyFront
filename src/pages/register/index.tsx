@@ -4,6 +4,9 @@ import { ZodType, z } from 'zod';
 import Form from '../../components/form';
 import { RegisterFormData, InputFields } from '../../types/form';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
+import Link from 'next/link';
+import FeLogo from '../../public/images/FeLogo.png';
 
 export default function Register() {
 	const router = useRouter();
@@ -48,28 +51,32 @@ export default function Register() {
 			name: 'username',
 			id: 'username',
 			required: true,
-			register: 'username'
+			register: 'username',
+			label: 'Pseudo'
 		},
 		{
 			type: 'email',
 			name: 'email',
 			id: 'email',
 			required: true,
-			register: 'email'
+			register: 'email',
+			label: 'Email'
 		},
 		{
 			type: 'password',
 			name: 'password',
 			id: 'password',
 			required: true,
-			register: 'password'
+			register: 'password',
+			label: 'Mot de passe'
 		},
 		{
 			type: 'password',
 			name: 'confirmPassword',
 			id: 'confirmPassword',
 			required: true,
-			register: 'confirmPassword'
+			register: 'confirmPassword',
+			label: 'Confirmer le mot de passe'
 		}
 	];
 	const submitData = async (data: RegisterFormData) => {
@@ -89,13 +96,27 @@ export default function Register() {
 	};
 
 	return (
-		<section className="register container">
-			<h1>Register page</h1>
-			<Form
-				validationSchema={registerValidationSchema}
-				onSubmit={submitData}
-				formFields={formFields}
-			/>
+		<section className="register__container">
+			<div className="form__card">
+				<div className="form__title">
+					<Image src={FeLogo} alt="FuelEconomy logo" priority></Image>
+					<h1>Inscription</h1>
+				</div>
+
+				<Form
+					validationSchema={registerValidationSchema}
+					onSubmit={submitData}
+					formFields={formFields}
+					labelButton="Créer son compte"
+				></Form>
+
+				<div className="form__link">
+					<div>
+						<span>Déjà un compte ?</span>
+						<Link href="/login">Se connecter</Link>
+					</div>
+				</div>
+			</div>
 		</section>
 	);
 }

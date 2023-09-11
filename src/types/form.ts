@@ -5,6 +5,7 @@ export type FormData<T extends FieldValues> = {
 	validationSchema: ZodSchema;
 	onSubmit: SubmitHandler<T>;
 	formFields: InputFields<T>[];
+	labelButton: string;
 };
 
 export type InputFields<T> = {

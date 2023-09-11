@@ -1,21 +1,4 @@
 [data-theme='dark'] {
-	// --main-background: #27374d;
-	// --card-background: #526d82;
-
-	// --primary-color: #dde6ed;
-	// --secondary-color: #9db2bf;
-	// --tertiary-color: #27374d;
-
-	// --button-background: #9db2bf;
-	// --button-text-color: #27374d;
-	// --button-outline-color: #27374d;
-
-	// --input-autofill-color: #27374d;
-	// --input-color: #27374d;
-	// --input-outline-color: #9db2bf;
-
-	// --link-color: #dde6ed;
-
 	--main-background: #27374d;
 	--secondary-background: #526d82;
 	--tertiary-background: #9db2bf;
@@ -27,6 +10,11 @@
 	--input-outline-color: #27374d;
 	--input-text-color: #ffffff;
 
-	--button-background: #526d82;
+	--button-background: #151e26;
+	--button-eye-color: #dde6ed;
 	--button-text-color: #dde6ed;
+
+	--toast-background: #27374d;
+	--toast-text-color: #dde6ed;
+	--toast-icon-color: #9db2bf;
 }
