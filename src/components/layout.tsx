@@ -7,11 +7,11 @@ export default function Layout({ children }: LayoutProps) {
 	const router = useRouter();
 	return (
 		<>
-			{/* {router.asPath === '/login' || router.asPath === '/register' ? (
+			{router.asPath === '/login' || router.asPath === '/register' ? (
 				''
 			) : (
 				<Header />
-			)} */}
+			)}
 			<Header></Header>
 			<main>{children}</main>
 		</>

@@ -56,10 +56,10 @@ export default function Login() {
 					password: password
 				}
 			);
-			Cookies.set('access-token', response.data.accessToken, {
+			Cookies.set('accessToken', response.data.accessToken, {
 				expires: new Date(new Date().getTime() + 10 * 60 * 1000)
 			});
-			Cookies.set('refresh-token', response.data.refreshToken, {
+			Cookies.set('refreshToken', response.data.refreshToken, {
 				expires: 1
 			});
 			router.push('/');
