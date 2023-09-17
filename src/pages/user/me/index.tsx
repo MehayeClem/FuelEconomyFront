@@ -5,6 +5,15 @@ import { GetServerSidePropsContext } from 'next';
 import createAxiosInstance from '../../../middlewares/axiosConfig';
 import { gasStationProps } from '../../../types/gasStation';
 import ThemeSwitcher from '../../../components/switchTheme';
+import Image from 'next/image';
+import {
+	FaPencil,
+	FaEnvelope,
+	FaRegCircleXmark,
+	FaRegCircleCheck,
+	FaLocationDot
+} from 'react-icons/fa6';
+import defaultAvatar from '../../../public/images/default_avatar.png';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
 	const axiosInstance: AxiosInstance = createAxiosInstance(context);
@@ -32,12 +41,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 								name: string;
 								Price: { text: string };
 								available: boolean;
+								short_name: string;
+								LastUpdate: {
+									value: string;
+								};
 							}) => ({
 								name: fuel.name,
 								price: fuel.Price.text,
-								available: fuel.available
+								available: fuel.available,
+								short_name: fuel.short_name
 							})
-						)
+						),
+						lastUpdate: gasStationDetails.LastUpdate.value
 					};
 				} catch (error) {
 					if (axios.isAxiosError(error)) {
@@ -100,47 +115,125 @@ export default function Profil({
 		return date.toLocaleDateString('fr-FR', options);
 	}
 
-	console.log(gasStations);
+	function calculateTimeDifference(lastUpdate: string): string {
+		const lastUpdateDate = new Date(lastUpdate);
+		const currentDate = new Date();
+
+		const timeDifferenceMilliseconds =
+			currentDate.getTime() - lastUpdateDate.getTime();
+
+		const secondsDifference = Math.floor(timeDifferenceMilliseconds / 1000);
+		const minutesDifference = Math.floor(secondsDifference / 60);
+		const hoursDifference = Math.floor(minutesDifference / 60);
+		const daysDifference = Math.floor(hoursDifference / 24);
+
+		if (daysDifference >= 1) {
+			return `Dernière mise à jour il y a ${daysDifference} jour${
+				daysDifference !== 1 ? 's' : ''
+			}`;
+		} else if (hoursDifference >= 1) {
+			return `Dernière mise à jour il y a ${hoursDifference} heure${
+				hoursDifference !== 1 ? 's' : ''
+			}`;
+		} else if (minutesDifference >= 1) {
+			return `Dernière mise à jour il y a ${minutesDifference} minute${
+				minutesDifference !== 1 ? 's' : ''
+			}`;
+		} else {
+			return `Dernière mise à jour il y a ${secondsDifference} seconde${
+				secondsDifference !== 1 ? 's' : ''
+			}`;
+		}
+	}
 
 	return (
 		<section className="profil__container">
 			<div className="profil__wrapper">
 				<div className="profil__details">
 					<div className="profil__top">
-						<div className="profil__img">Image</div>
-						<div className="profil__edit">Edit</div>
+						<div className="profil__img">
+							<Image
+								src={defaultAvatar}
+								alt="Image de profil"
+								priority
+							></Image>
+						</div>
+
+						<div className="profil__settings">
+							<div className="profil__edit">
+								<FaPencil />
+							</div>
+							<div className="profil__theme">
+								<ThemeSwitcher />
+							</div>
+						</div>
 					</div>
 					<div className="profil__bottom">
-						<p>{user.username}</p>
-						<p>{formatDateToFrench(user.createdAt)}</p>
-						<p>{user.email}</p>
-					</div>
-				</div>
-				<div className="settings__container">
-					<ThemeSwitcher />
-				</div>
-			</div>
-
-			<div className="gasSations__container">
-				{gasStations.map((gasStation, index) => (
-					<div key={index}>
-						<h2>{gasStation.brand}</h2>
-						<p>Street Line: {gasStation.address.street_line}</p>
-						<p>City Line: {gasStation.address.city_line}</p>
-						<h3>Fuels:</h3>
-						<ul>
-							{gasStation.fuels.map((fuel, fuelIndex) => (
-								<li key={fuelIndex}>
-									<strong>Name:</strong> {fuel.name}
-									<br />
-									<strong>Price:</strong> {fuel.price}
-									<br />
-									{fuel.available ? 'Disponible' : 'Indisponible'}
+						<div className="profil__username">
+							<h1>{user.username}</h1>
+							<span className="profil__account">
+								Compte créé le {formatDateToFrench(user.createdAt)}{' '}
+							</span>
+						</div>
+						<div className="profil__infos">
+							<ul className="profil__list">
+								<li className="profil__info">
+									<FaEnvelope />
+									{user.email}
 								</li>
-							))}
-						</ul>
+							</ul>
+						</div>
 					</div>
-				))}
+				</div>
+				<div className="gasStations__container">
+					<h1>Mes stations favorites</h1>
+					<div className="gasStations__details">
+						{gasStations.map((gasStation, index) => (
+							<div key={index} className="gasStation__card">
+								<div className="card__top">
+									<div className="card__left">
+										<h2>{gasStation.brand}</h2>
+
+										<span>
+											{gasStation.address.street_line},{' '}
+											{gasStation.address.city_line}
+										</span>
+									</div>
+									<div className="card__right">
+										<ul>
+											{gasStation.fuels.map((fuel, fuelIndex) => (
+												<li
+													key={fuelIndex}
+													className="fuel__details"
+												>
+													<div className="fuel__infos">
+														<div className="fuel__name">
+															{fuel.short_name}
+														</div>
+														<div className="fuel__price">
+															{fuel.price}
+														</div>
+													</div>
+
+													<div className="fuel__available">
+														{fuel.available ? (
+															<FaRegCircleCheck />
+														) : (
+															<FaRegCircleXmark />
+														)}
+													</div>
+												</li>
+											))}
+										</ul>
+									</div>
+								</div>
+								<div className="card__bottom">
+									{calculateTimeDifference(gasStation.lastUpdate)}
+								</div>
+							</div>
+						))}
+					</div>
+				</div>
 			</div>
 		</section>
 	);

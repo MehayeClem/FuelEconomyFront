@@ -1,0 +1,32 @@
+.theme__container {
+	width: max-content;
+	height: 100%;
+	padding: 10px;
+	border-radius: 10px;
+	background-color: var(--tertiary-background);
+
+	.theme__card {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.theme__icon {
+			svg {
+				width: 20px;
+				height: 20px;
+				fill: var(--secondary-background);
+			}
+		}
+	}
+	&:hover {
+		.theme__card {
+			background-color: var(--tertiary-background);
+
+			svg {
+				fill: var(--main-background);
+			}
+		}
+	}
+}

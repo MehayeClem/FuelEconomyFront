@@ -21,6 +21,7 @@ function createAxiosInstance(context: GetServerSidePropsContext) {
 		}
 	);
 
+	let cpt = 0;
 	axiosInstance.interceptors.response.use(
 		response => {
 			return response;
@@ -33,12 +34,15 @@ function createAxiosInstance(context: GetServerSidePropsContext) {
 				error.response.status === 401 &&
 				!originalRequest._retry
 			) {
+				cpt++;
+				console.log(cpt);
 				originalRequest._retry = true;
 
 				const refreshToken = context.req.cookies.refreshToken;
 				if (!refreshToken) {
 					context.res.writeHead(302, { Location: '/login' });
 					context.res.end();
+					return;
 				}
 
 				try {

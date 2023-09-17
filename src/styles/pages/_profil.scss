@@ -1,3 +1,5 @@
+@import '../components/switchTheme';
+
 .profil__container {
 	width: 100%;
 	min-height: 100vh;
@@ -7,8 +9,275 @@
 	flex-direction: column;
 
 	.profil__wrapper {
-		width: calc(100% - 300px);
+		width: clamp(80%, 325px, 100%);
 		display: flex;
-		justify-content: space-between;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		gap: 75px;
+
+		.profil__details {
+			width: clamp(20%, 600px, 100%);
+			background-color: var(--secondary-background);
+			border-radius: 10px;
+			padding: 20px;
+
+			.profil__top {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				position: relative;
+
+				.profil__img {
+					img {
+						width: 150px;
+						height: 150px;
+					}
+				}
+				.profil__settings {
+					position: absolute;
+					top: 0;
+					right: 0;
+					width: max-content;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					gap: 5px;
+
+					.profil__edit {
+						width: max-content;
+						height: max-content;
+						padding: 10px;
+						border-radius: 10px;
+						background-color: var(--tertiary-background);
+						svg {
+							width: 20px;
+							height: 20px;
+							fill: var(--secondary-background);
+						}
+						&:hover {
+							background-color: var(--tertiary-background);
+
+							svg {
+								fill: var(--main-background);
+							}
+						}
+					}
+				}
+			}
+
+			.profil__bottom {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+
+				.profil__username {
+					width: 100%;
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					flex-direction: column;
+					h1 {
+						font-weight: bold;
+					}
+
+					.profil__account {
+						display: flex;
+						gap: 5px;
+						color: var(--card-tertiary-text-color);
+						font-size: 0.9em;
+					}
+				}
+
+				.profil__infos {
+					width: 100%;
+					.profil__list {
+						width: 100%;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						list-style: none;
+						padding: inherit;
+
+						.profil__info {
+							width: max-content;
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							gap: 5px;
+						}
+					}
+				}
+			}
+		}
+
+		.settings__container {
+			width: clamp(20%, 200px, 100%);
+			background-color: var(--secondary-background);
+			border-radius: 10px;
+			padding: 0 20px;
+		}
+
+		.gasStations__container {
+			width: clamp(20%, 1200px, 100%);
+			display: flex;
+			justify-content: space-around;
+			flex-direction: column;
+			background-color: var(--secondary-background);
+			border-radius: 10px;
+			padding: 20px;
+
+			.gasStations__details {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				gap: 50px;
+				padding: 25px 0;
+
+				.gasStation__card {
+					width: clamp(20%, 450px, 100%);
+					display: flex;
+					flex-direction: column;
+					gap: 20px;
+					border-radius: 10px;
+					background-color: var(--main-background);
+					padding: 0 0 10px 0;
+
+					.card__top {
+						width: 100%;
+						display: flex;
+						justify-content: space-around;
+						gap: 10px;
+						.card__left {
+							width: 40%;
+							display: flex;
+							flex-direction: column;
+						}
+						.card__right {
+							width: 40%;
+							display: flex;
+							flex-direction: column;
+
+							ul {
+								display: flex;
+								gap: 5px;
+								flex-direction: column;
+								list-style: none;
+								padding: inherit;
+
+								.fuel__details {
+									width: 100%;
+									display: flex;
+									justify-content: center;
+									align-items: center;
+									gap: 10px;
+
+									.fuel__infos {
+										width: 100%;
+										height: max-content;
+										display: flex;
+										justify-content: flex-start;
+										align-items: center;
+										border-top-left-radius: 20px;
+										border-bottom-left-radius: 20px;
+										font-size: 0.9em;
+
+										.fuel__name {
+											width: 50%;
+											display: flex;
+											justify-content: center;
+											background-color: var(--secondary-background);
+											border: 2px solid var(--secondary-background);
+
+											border-top-left-radius: 16px;
+											border-bottom-left-radius: 16px;
+											padding: 2.5px;
+										}
+										.fuel__price {
+											width: 50%;
+											display: flex;
+											justify-content: center;
+											border: 2px solid var(--secondary-background);
+											background-color: var(--warning-color);
+											color: var(--card-secondary-text-color);
+											border-top-right-radius: 16px;
+											border-bottom-right-radius: 16px;
+											padding: 2.5px;
+										}
+									}
+
+									.fuel__available {
+										svg {
+											fill: var(--success-color);
+										}
+									}
+								}
+							}
+						}
+					}
+					.card__bottom {
+						width: 100%;
+						display: flex;
+						justify-content: center;
+						font-size: 0.8em;
+						color: var(--card-tertiary-text-color);
+					}
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 400px) {
+	.profil__settings {
+		flex-direction: column;
+	}
+
+	.gasStations__container {
+		h1 {
+			font-size: 1.5em;
+		}
+		.gasStations__details {
+			flex-direction: column;
+
+			.gasStation__card {
+				.card__top {
+					flex-direction: column;
+					.card__left {
+						width: 80% !important;
+						margin: 0 auto;
+					}
+					.card__right {
+						width: 80% !important;
+						margin: 0 auto;
+					}
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 1050px) {
+	.gasStations__container {
+		.gasStations__details {
+			align-items: center;
+			flex-direction: column;
+
+			.gasStation__card {
+				.card__top {
+					flex-direction: column;
+					.card__left {
+						width: 80% !important;
+						margin: 0 auto;
+					}
+					.card__right {
+						width: 80% !important;
+						margin: 0 auto;
+					}
+				}
+			}
+		}
 	}
 }

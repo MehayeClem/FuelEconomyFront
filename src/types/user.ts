@@ -6,3 +6,8 @@ export type UserProps = {
 	createdAt: string;
 	updatedAt: string;
 };
+
+export type UserPosition = {
+	latitude: number;
+	longitude: number;
+};
