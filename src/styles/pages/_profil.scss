@@ -1,0 +1,14 @@
+.profil__container {
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+
+	.profil__wrapper {
+		width: calc(100% - 300px);
+		display: flex;
+		justify-content: space-between;
+	}
+}

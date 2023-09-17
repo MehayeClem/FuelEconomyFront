@@ -1,9 +1,10 @@
 @import './base/normalize';
 @import './utils/variables';
 @import './utils/placeholder';
+@import './layout/header';
 @import './pages/login';
 @import './pages/register';
-@import './layout/header';
+@import './pages/profil';
 
 body {
 	margin: 0;
