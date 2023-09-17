@@ -1,30 +1,56 @@
-import { useEffect } from 'react';
+import { use, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
+import axios from 'axios';
+import { UserPosition } from '../types/user';
+import { gasStationProps } from '../types/gasStation';
 
 export default function Home() {
+	const GeoLocOptions = {
+		enableHighAccuracy: true,
+		timeout: 5000,
+		maximumAge: 1000
+	};
+
+	const [userPosition, setUserPosition] = useState<UserPosition>();
+	const [gasStations, setGasStations] = useState<gasStationProps[]>();
+
 	useEffect(() => {
-		if (Cookies.get('refresh-token')) {
-			toast.success('Bienvenu !');
+		getGeolocalisation();
+		console.log(getStationsArroundData());
+	}, [userPosition]);
+
+	function getGeolocalisation() {
+		navigator.geolocation.getCurrentPosition(
+			position => {
+				setUserPosition(position.coords);
+			},
+			() => {
+				console.log('Erreur');
+			},
+			GeoLocOptions
+		);
+	}
+
+	async function getStationsArroundData() {
+		try {
+			const response = await axios.get(
+				`https://api.prix-carburants.2aaz.fr/stations/around/${userPosition?.latitude},${userPosition?.longitude}`
+			);
+			setGasStations(response.data);
+		} catch (error) {
+			if (axios.isAxiosError(error)) {
+				return {
+					props: {
+						errorMessage:
+							error.response?.data.message || 'Une erreur est survenue'
+					}
+				};
+			}
 		}
-	}, []);
+	}
 
 	return (
-		<>
-			<h1>Exemple de Thème Sombre</h1>
-
-			<div className="card">
-				<h1 className="headline">Headline</h1>
-				<span className="subheadline">Subheadline</span>
-				<p className="text">Text</p>
-			</div>
-
-			<button className="button">Button</button>
-			<div>
-				<span className="error">Error</span>
-				<span className="warning">Warning</span>
-				<span className="success">Success</span>
-			</div>
-		</>
+		<section>{gasStations?.map(gasStation => <div>Blabla</div>)}</section>
 	);
 }
