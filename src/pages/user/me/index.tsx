@@ -215,7 +215,9 @@ export default function Profil({
 														</div>
 													</div>
 
-													<div className="fuel__available">
+													<div
+														className={`fuel__available fuel__available-${fuel.available}`}
+													>
 														{fuel.available ? (
 															<FaRegCircleCheck />
 														) : (

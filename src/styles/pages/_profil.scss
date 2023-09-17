@@ -129,6 +129,10 @@
 			border-radius: 10px;
 			padding: 20px;
 
+			h1 {
+				font-size: 1.8em;
+			}
+
 			.gasStations__details {
 				width: 100%;
 				display: flex;
@@ -209,8 +213,15 @@
 									}
 
 									.fuel__available {
-										svg {
-											fill: var(--success-color);
+										&.fuel__available-true {
+											svg {
+												fill: var(--success-color);
+											}
+										}
+										&.fuel__available-false {
+											svg {
+												fill: var(--error-color);
+											}
 										}
 									}
 								}
