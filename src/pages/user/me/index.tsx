@@ -197,6 +197,16 @@ export default function Profil({
 			userData.username = data.username;
 		}
 
+		console.log(data);
+
+		if (data.email == '' && data.username == '') {
+			toast.error('Les champs ne doivent pas être vide', {
+				pauseOnHover: false,
+				pauseOnFocusLoss: false
+			});
+			return;
+		}
+
 		try {
 			const newUserData = await axiosInstance.put(`/users/${user.id}`, {
 				data: {
