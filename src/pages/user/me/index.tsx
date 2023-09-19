@@ -213,8 +213,14 @@ export default function Profil({
 			});
 
 			setIsModalOpen(false);
-		} catch (error) {}
-		console.log(data);
+		} catch (error) {
+			if (isAxiosError(error)) {
+				toast.error(error.response?.data || 'Une erreur est survenue', {
+					pauseOnHover: false,
+					pauseOnFocusLoss: false
+				});
+			}
+		}
 	}
 
 	function openModal() {
