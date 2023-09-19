@@ -25,7 +25,7 @@ export default function ThemeSwitcher() {
 		>
 			<div className="theme__card">
 				<div className="theme__icon">
-					{theme === 'dark' ? <FaMoon /> : <FaSun />}
+					{theme === 'dark' ? <FaSun /> : <FaMoon />}
 				</div>
 			</div>
 		</div>

@@ -10,4 +10,29 @@
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
+
+	.form__card {
+		width: clamp(350px, 95%, 600px);
+		height: max-content;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		gap: 30px;
+		background-color: var(--form-background);
+		border-radius: 10px;
+
+		.form__title {
+			padding-top: 50px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			font-size: clamp(0.8em, 2vw, 1em);
+
+			img {
+				width: 70px;
+				height: 70px;
+			}
+		}
+	}
 }

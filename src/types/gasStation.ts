@@ -1,4 +1,5 @@
 export type gasStationProps = {
+	id: string;
 	address: {
 		street_line: string;
 		city_line: string;

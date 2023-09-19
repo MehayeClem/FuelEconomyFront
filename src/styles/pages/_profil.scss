@@ -1,4 +1,5 @@
 @import '../components/switchTheme';
+@import '../components/modal';
 
 .profil__container {
 	width: 100%;
@@ -7,6 +8,7 @@
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	position: relative;
 
 	.profil__wrapper {
 		width: clamp(80%, 325px, 100%);
@@ -56,6 +58,7 @@
 							fill: var(--secondary-background);
 						}
 						&:hover {
+							cursor: pointer;
 							background-color: var(--tertiary-background);
 
 							svg {
@@ -141,13 +144,42 @@
 				padding: 25px 0;
 
 				.gasStation__card {
+					position: relative;
 					width: clamp(20%, 450px, 100%);
 					display: flex;
 					flex-direction: column;
 					gap: 20px;
 					border-radius: 10px;
 					background-color: var(--main-background);
-					padding: 0 0 10px 0;
+					padding: 25px 0 20px 0;
+
+					.card__delete {
+						position: absolute;
+						top: 5px;
+						right: 10px;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						padding: 5px;
+						border-radius: 5px;
+						color: var(--error-color);
+						display: none;
+
+						&:hover {
+							cursor: pointer;
+						}
+
+						svg {
+							width: 20px;
+							height: 20px;
+						}
+					}
+
+					&:hover {
+						.card__delete {
+							display: flex;
+						}
+					}
 
 					.card__top {
 						width: 100%;
@@ -254,6 +286,13 @@
 			flex-direction: column;
 
 			.gasStation__card {
+				.card__delete {
+					display: flex;
+					svg {
+						width: 25px !important;
+						height: 25px !important;
+					}
+				}
 				.card__top {
 					flex-direction: column;
 					.card__left {
@@ -277,6 +316,14 @@
 			flex-direction: column;
 
 			.gasStation__card {
+				.card__delete {
+					display: flex !important;
+
+					svg {
+						width: 25px !important;
+						height: 25px !important;
+					}
+				}
 				.card__top {
 					flex-direction: column;
 					.card__left {

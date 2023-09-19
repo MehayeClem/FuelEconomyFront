@@ -23,7 +23,7 @@
 	&:hover {
 		.theme__card {
 			background-color: var(--tertiary-background);
-
+			cursor: pointer;
 			svg {
 				fill: var(--main-background);
 			}

@@ -1,15 +1,22 @@
 import axios from 'axios';
 import { GetServerSidePropsContext } from 'next';
 import { serialize } from 'cookie';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
 
-function createAxiosInstance(context: GetServerSidePropsContext) {
+function createAxiosInstance(context?: GetServerSidePropsContext) {
 	const axiosInstance = axios.create({
 		baseURL: 'http://localhost:8081/api/v1'
 	});
 
 	axiosInstance.interceptors.request.use(
 		config => {
-			const accessToken = context.req.cookies.accessToken;
+			let accessToken;
+			if (context) {
+				accessToken = context.req.cookies.accessToken;
+			} else {
+				accessToken = Cookies.get('accessToken');
+			}
 
 			if (accessToken) {
 				config.headers.Authorization = `Bearer ${accessToken}`;
@@ -21,7 +28,6 @@ function createAxiosInstance(context: GetServerSidePropsContext) {
 		}
 	);
 
-	let cpt = 0;
 	axiosInstance.interceptors.response.use(
 		response => {
 			return response;
@@ -34,15 +40,25 @@ function createAxiosInstance(context: GetServerSidePropsContext) {
 				error.response.status === 401 &&
 				!originalRequest._retry
 			) {
-				cpt++;
-				console.log(cpt);
 				originalRequest._retry = true;
 
-				const refreshToken = context.req.cookies.refreshToken;
+				let refreshToken;
+
+				if (context) {
+					refreshToken = context.req.cookies.refreshToken;
+				} else {
+					refreshToken = Cookies.get('refreshToken');
+				}
+
 				if (!refreshToken) {
-					context.res.writeHead(302, { Location: '/login' });
-					context.res.end();
-					return;
+					if (context) {
+						context.res.writeHead(302, { Location: '/login' });
+						context.res.end();
+						return;
+					} else {
+						const router = useRouter();
+						router.push('/login');
+					}
 				}
 
 				try {
@@ -67,7 +83,13 @@ function createAxiosInstance(context: GetServerSidePropsContext) {
 							}
 						);
 
-						context.res.setHeader('Set-Cookie', accessTokenCookie);
+						if (context) {
+							context.res.setHeader('Set-Cookie', accessTokenCookie);
+						} else {
+							Cookies.set('accessToken', accessTokenCookie, {
+								expires: new Date(new Date().getTime() + 10 * 60 * 1000)
+							});
+						}
 						originalRequest.headers.Authorization = `Bearer ${response.data.accessToken}`;
 						return axiosInstance(originalRequest);
 					}
@@ -78,7 +100,6 @@ function createAxiosInstance(context: GetServerSidePropsContext) {
 			return Promise.reject(error);
 		}
 	);
-
 	return axiosInstance;
 }
 

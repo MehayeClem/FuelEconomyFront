@@ -68,7 +68,8 @@ export default function Login() {
 				const errorMessage =
 					error.response?.data || 'Une erreur est survenue';
 				toast.error(errorMessage.toString(), {
-					pauseOnHover: false
+					pauseOnHover: false,
+					pauseOnFocusLoss: false
 				});
 			}
 		}
