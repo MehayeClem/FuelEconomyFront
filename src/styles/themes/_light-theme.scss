@@ -1,18 +1,23 @@
 [data-theme='light'] {
 	--main-background: #dde6ed;
-	--main-background-rgb: 221, 230, 237;
+	--main-background-rgb: 82, 109, 130;
 	--secondary-background: #9db2bf;
 	--tertiary-background: #526d82;
 
 	--text-color: #27374d;
 
+	--link-text-color: #27374d;
+	--link-hover-underline-color: rgb(82, 109, 130);
+
 	--form-background: #dde6ed;
 	--input-color: #9db2bf;
 	--input-outline-color: #526d82;
+	--input-text-color: #000000;
 
 	--button-background: #526d82;
 	--button-eye-color: #27374d;
 	--button-text-color: #dde6ed;
+	--button-hover-text-color: #9db2bf;
 
 	--toast-background: #dde6ed;
 	--toast-text-color: #f44336;
@@ -21,4 +26,8 @@
 	--card-primary-text-color: #27374d;
 	--card-secondary-text-color: #526d82;
 	--card-tertiary-text-color: #526d82;
+
+	--navbar-mobile-hover-underline-color: #27374d;
+
+	--stroke-color: #526d82;
 }

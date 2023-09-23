@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import Image from 'next/image';
 import Link from 'next/link';
 import FeLogo from '../../public/images/FeLogo.png';
+import { FaAngleLeft, FaArrowLeft, FaArrowLeftLong } from 'react-icons/fa6';
 
 export default function Login() {
 	const router = useRouter();
@@ -78,6 +79,11 @@ export default function Login() {
 	return (
 		<section className="login__container">
 			<div className="form__card">
+				<div className="home__link">
+					<Link href="/">
+						<FaAngleLeft /> <span>Revenir sur la carte</span>
+					</Link>
+				</div>
 				<div className="form__title">
 					<Image src={FeLogo} alt="FuelEconomy logo" priority></Image>
 					<h1>Connexion</h1>

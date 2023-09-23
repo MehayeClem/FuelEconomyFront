@@ -1,10 +1,13 @@
 [data-theme='dark'] {
 	--main-background: #27374d;
-	--main-background-rgb: 39, 55, 78;
+	--main-background-rgb: 21, 30, 38;
 	--secondary-background: #526d82;
 	--tertiary-background: #9db2bf;
 
 	--text-color: #dde6ed;
+
+	--link-text-color: #dde6ed;
+	--link-hover-underline-color: #151e26;
 
 	--form-background: #27374d;
 	--input-color: #526d82;
@@ -14,6 +17,7 @@
 	--button-background: #151e26;
 	--button-eye-color: #dde6ed;
 	--button-text-color: #dde6ed;
+	--button-hover-text-color: #9db2bf;
 
 	--toast-background: #27374d;
 	--toast-text-color: #dde6ed;
@@ -22,4 +26,8 @@
 	--card-primary-text-color: #dde6ed;
 	--card-secondary-text-color: #526d82;
 	--card-tertiary-text-color: #9db2bf;
+
+	--navbar-mobile-hover-underline-color: #9db2bf;
+
+	--stroke-color: #151e26;
 }

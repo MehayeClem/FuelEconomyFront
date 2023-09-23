@@ -35,13 +35,7 @@ function createAxiosInstance(context?: GetServerSidePropsContext) {
 		async error => {
 			const originalRequest = error.config;
 
-			if (
-				error.response &&
-				error.response.status === 401 &&
-				!originalRequest._retry
-			) {
-				originalRequest._retry = true;
-
+			if (error.response && error.response.status === 401) {
 				let refreshToken;
 
 				if (context) {
@@ -71,22 +65,22 @@ function createAxiosInstance(context?: GetServerSidePropsContext) {
 							}
 						}
 					);
-					if (response.status === 200) {
-						const accessTokenCookie = serialize(
-							'accessToken',
-							response.data.accessToken,
-							{
-								expires: new Date(
-									new Date().getTime() + 10 * 60 * 1000
-								),
-								path: '/'
-							}
-						);
 
+					if (response.status === 200) {
 						if (context) {
+							const accessTokenCookie = serialize(
+								'accessToken',
+								response.data.accessToken,
+								{
+									expires: new Date(
+										new Date().getTime() + 10 * 60 * 1000
+									),
+									path: '/'
+								}
+							);
 							context.res.setHeader('Set-Cookie', accessTokenCookie);
 						} else {
-							Cookies.set('accessToken', accessTokenCookie, {
+							Cookies.set('accessToken', response.data.accessToken, {
 								expires: new Date(new Date().getTime() + 10 * 60 * 1000)
 							});
 						}

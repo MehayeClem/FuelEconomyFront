@@ -9,6 +9,7 @@
 	align-items: center;
 	flex-direction: column;
 	position: relative;
+	margin-top: 50px;
 
 	.profil__wrapper {
 		width: clamp(80%, 325px, 100%);
@@ -126,27 +127,84 @@
 		.gasStations__container {
 			width: clamp(20%, 1200px, 100%);
 			display: flex;
-			justify-content: space-around;
+			justify-content: center;
+			align-items: center;
 			flex-direction: column;
 			background-color: var(--secondary-background);
 			border-radius: 10px;
 			padding: 20px;
 
 			h1 {
+				width: 100%;
 				font-size: 1.8em;
+				margin-block-start: 0em;
+				margin-block-end: 0em;
 			}
 
 			.gasStations__details {
 				width: 100%;
-				display: flex;
-				justify-content: center;
-				gap: 50px;
-				padding: 25px 0;
+				display: flex !important;
+				flex-direction: column;
+				gap: 20px;
+				margin: 50px 0 50px 0;
+
+				.slick-slider {
+					.custom__arrow {
+						position: absolute;
+						top: 0;
+						height: 100%;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+
+						&.prev__arrow {
+							left: -35px;
+						}
+
+						&.next__arrow {
+							right: -35px;
+						}
+						div {
+							width: 100%;
+							height: max-content;
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							background-color: var(--tertiary-background);
+							border-radius: 50%;
+							padding: 5px;
+
+							svg {
+								width: 30px;
+								height: 30px;
+								fill: var(--secondary-background);
+								&:hover {
+									cursor: pointer;
+								}
+							}
+						}
+					}
+
+					.slick-track {
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						gap: 20px;
+
+						.slick-slide {
+							div {
+								display: flex;
+								justify-content: center;
+							}
+						}
+					}
+				}
 
 				.gasStation__card {
 					position: relative;
-					width: clamp(20%, 450px, 100%);
-					display: flex;
+					width: clamp(20%, 450px, 100%) !important;
+
+					display: flex !important;
 					flex-direction: column;
 					gap: 20px;
 					border-radius: 10px;
@@ -184,7 +242,8 @@
 					.card__top {
 						width: 100%;
 						display: flex;
-						justify-content: space-around;
+						justify-content: space-around !important;
+						flex-grow: 1;
 						gap: 10px;
 						.card__left {
 							width: 40%;
@@ -283,7 +342,7 @@
 			font-size: 1.5em;
 		}
 		.gasStations__details {
-			flex-direction: column;
+			width: 100%;
 
 			.gasStation__card {
 				.card__delete {
@@ -312,9 +371,7 @@
 @media (max-width: 1050px) {
 	.gasStations__container {
 		.gasStations__details {
-			align-items: center;
-			flex-direction: column;
-
+			width: 100%;
 			.gasStation__card {
 				.card__delete {
 					display: flex !important;

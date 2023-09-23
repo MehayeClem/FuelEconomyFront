@@ -22,6 +22,7 @@ import {
 import Modal from '../../../components/modal';
 import { ZodType, z } from 'zod';
 import { InputFields, UpdateFormData } from '../../../types/form';
+import CarousselGasStation from '../../../components/carousselGasStations';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
 	const axiosInstance: AxiosInstance = createAxiosInstance(context);
@@ -38,6 +39,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 					);
 
 					const gasStationDetails = response.data;
+
 					return {
 						id: gasStationDetails.id,
 						address: {
@@ -168,7 +170,9 @@ export default function Profil({
 				}
 			);
 
-			setGasStationData(response.data.gasStations);
+			setGasStationData(prevGasStations =>
+				prevGasStations.filter(gasStation => gasStation.id !== gasStationId)
+			);
 
 			toast.success(response.data.message, {
 				pauseOnHover: false,
@@ -267,9 +271,6 @@ export default function Profil({
 							<div className="profil__edit" onClick={openModal}>
 								<FaPencil />
 							</div>
-							<div className="profil__theme">
-								<ThemeSwitcher />
-							</div>
 						</div>
 					</div>
 					<div className="profil__bottom">
@@ -295,60 +296,10 @@ export default function Profil({
 						{gasStationsData.length === 0 ? (
 							<div>Aucune stations d'essences favorites</div>
 						) : (
-							gasStationsData.map((gasStation, index) => (
-								<div key={index} className="gasStation__card">
-									<div
-										className="card__delete"
-										onClick={() => {
-											deleteGasStation(gasStation.id);
-										}}
-									>
-										<FaTrashCan />
-									</div>
-									<div className="card__top">
-										<div className="card__left">
-											<h2>{gasStation.brand}</h2>
-
-											<span>
-												{gasStation.address.street_line},{' '}
-												{gasStation.address.city_line}
-											</span>
-										</div>
-										<div className="card__right">
-											<ul>
-												{gasStation.fuels.map((fuel, fuelIndex) => (
-													<li
-														key={fuelIndex}
-														className="fuel__details"
-													>
-														<div className="fuel__infos">
-															<div className="fuel__name">
-																{fuel.short_name}
-															</div>
-															<div className="fuel__price">
-																{fuel.price}
-															</div>
-														</div>
-
-														<div
-															className={`fuel__available fuel__available-${fuel.available}`}
-														>
-															{fuel.available ? (
-																<FaRegCircleCheck />
-															) : (
-																<FaRegCircleXmark />
-															)}
-														</div>
-													</li>
-												))}
-											</ul>
-										</div>
-									</div>
-									<div className="card__bottom">
-										{calculateTimeDifference(gasStation.lastUpdate)}
-									</div>
-								</div>
-							))
+							<CarousselGasStation
+								gasStationsData={gasStationsData}
+								deleteGasStation={deleteGasStation}
+							/>
 						)}
 					</div>
 				</div>
