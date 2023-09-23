@@ -1,5 +1,6 @@
 import { useTheme } from 'next-themes';
 import { useState, useEffect } from 'react';
+import { FaCog, FaMoon, FaSun } from 'react-icons/fa';
 
 export default function ThemeSwitcher() {
 	const [mounted, setMounted] = useState(false);
@@ -13,25 +14,20 @@ export default function ThemeSwitcher() {
 		return null;
 	}
 
+	const nextTheme = theme === 'dark' ? 'light' : 'dark';
+
 	return (
-		<div>
-			Theme: {theme}
-			{/* <button
-				onClick={() => {
-					theme === 'light' ? setTheme('dark') : setTheme('light');
-				}}
-			>
-				Switch theme
-			</button> */}
-			<select value={theme} onChange={e => setTheme(e.target.value)}>
-				<option value="system">System</option>
-				{mounted && (
-					<>
-						<option value="dark">Dark</option>
-						<option value="light">Light</option>
-					</>
-				)}
-			</select>
+		<div
+			className="theme__container"
+			onClick={() => {
+				setTheme(nextTheme);
+			}}
+		>
+			<div className="theme__card">
+				<div className="theme__icon">
+					{theme === 'dark' ? <FaSun /> : <FaMoon />}
+				</div>
+			</div>
 		</div>
 	);
 }

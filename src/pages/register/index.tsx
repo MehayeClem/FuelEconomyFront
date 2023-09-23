@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
 import FeLogo from '../../public/images/FeLogo.png';
+import { FaAngleLeft } from 'react-icons/fa6';
 
 export default function Register() {
 	const router = useRouter();
@@ -98,6 +99,11 @@ export default function Register() {
 	return (
 		<section className="register__container">
 			<div className="form__card">
+				<div className="home__link">
+					<Link href="/">
+						<FaAngleLeft /> <span>Revenir sur la carte</span>
+					</Link>
+				</div>
 				<div className="form__title">
 					<Image src={FeLogo} alt="FuelEconomy logo" priority></Image>
 					<h1>Inscription</h1>

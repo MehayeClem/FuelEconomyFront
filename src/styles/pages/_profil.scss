@@ -1,3 +1,6 @@
+@import '../components/switchTheme';
+@import '../components/modal';
+
 .profil__container {
 	width: 100%;
 	min-height: 100vh;
@@ -5,10 +8,391 @@
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	position: relative;
+	margin-top: 50px;
 
 	.profil__wrapper {
-		width: calc(100% - 300px);
+		width: clamp(80%, 325px, 100%);
 		display: flex;
-		justify-content: space-between;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		gap: 75px;
+
+		.profil__details {
+			width: clamp(20%, 600px, 100%);
+			background-color: var(--secondary-background);
+			border-radius: 10px;
+			padding: 20px;
+
+			.profil__top {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				position: relative;
+
+				.profil__img {
+					img {
+						width: 150px;
+						height: 150px;
+					}
+				}
+				.profil__settings {
+					position: absolute;
+					top: 0;
+					right: 0;
+					width: max-content;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					gap: 5px;
+
+					.profil__edit {
+						width: max-content;
+						height: max-content;
+						padding: 10px;
+						border-radius: 10px;
+						background-color: var(--tertiary-background);
+						svg {
+							width: 20px;
+							height: 20px;
+							fill: var(--secondary-background);
+						}
+						&:hover {
+							cursor: pointer;
+							background-color: var(--tertiary-background);
+
+							svg {
+								fill: var(--main-background);
+							}
+						}
+					}
+				}
+			}
+
+			.profil__bottom {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+
+				.profil__username {
+					width: 100%;
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					flex-direction: column;
+					h1 {
+						font-weight: bold;
+					}
+
+					.profil__account {
+						display: flex;
+						gap: 5px;
+						color: var(--card-tertiary-text-color);
+						font-size: 0.9em;
+					}
+				}
+
+				.profil__infos {
+					width: 100%;
+					.profil__list {
+						width: 100%;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						list-style: none;
+						padding: inherit;
+
+						.profil__info {
+							width: max-content;
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							gap: 5px;
+						}
+					}
+				}
+			}
+		}
+
+		.settings__container {
+			width: clamp(20%, 200px, 100%);
+			background-color: var(--secondary-background);
+			border-radius: 10px;
+			padding: 0 20px;
+		}
+
+		.gasStations__container {
+			width: clamp(20%, 1200px, 100%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			background-color: var(--secondary-background);
+			border-radius: 10px;
+			padding: 20px;
+
+			h1 {
+				width: 100%;
+				font-size: 1.8em;
+				margin-block-start: 0em;
+				margin-block-end: 0em;
+			}
+
+			.gasStations__details {
+				width: 100%;
+				display: flex !important;
+				flex-direction: column;
+				gap: 20px;
+				margin: 50px 0 50px 0;
+
+				.slick-slider {
+					.custom__arrow {
+						position: absolute;
+						top: 0;
+						height: 100%;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+
+						&.prev__arrow {
+							left: -35px;
+						}
+
+						&.next__arrow {
+							right: -35px;
+						}
+						div {
+							width: 100%;
+							height: max-content;
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							background-color: var(--tertiary-background);
+							border-radius: 50%;
+							padding: 5px;
+
+							svg {
+								width: 30px;
+								height: 30px;
+								fill: var(--secondary-background);
+								&:hover {
+									cursor: pointer;
+								}
+							}
+						}
+					}
+
+					.slick-track {
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						gap: 20px;
+
+						.slick-slide {
+							div {
+								display: flex;
+								justify-content: center;
+							}
+						}
+					}
+				}
+
+				.gasStation__card {
+					position: relative;
+					width: clamp(20%, 450px, 100%) !important;
+
+					display: flex !important;
+					flex-direction: column;
+					gap: 20px;
+					border-radius: 10px;
+					background-color: var(--main-background);
+					padding: 25px 0 20px 0;
+
+					.card__delete {
+						position: absolute;
+						top: 5px;
+						right: 10px;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						padding: 5px;
+						border-radius: 5px;
+						color: var(--error-color);
+						display: none;
+
+						&:hover {
+							cursor: pointer;
+						}
+
+						svg {
+							width: 20px;
+							height: 20px;
+						}
+					}
+
+					&:hover {
+						.card__delete {
+							display: flex;
+						}
+					}
+
+					.card__top {
+						width: 100%;
+						display: flex;
+						justify-content: space-around !important;
+						flex-grow: 1;
+						gap: 10px;
+						.card__left {
+							width: 40%;
+							display: flex;
+							flex-direction: column;
+						}
+						.card__right {
+							width: 40%;
+							display: flex;
+							flex-direction: column;
+
+							ul {
+								display: flex;
+								gap: 5px;
+								flex-direction: column;
+								list-style: none;
+								padding: inherit;
+
+								.fuel__details {
+									width: 100%;
+									display: flex;
+									justify-content: center;
+									align-items: center;
+									gap: 10px;
+
+									.fuel__infos {
+										width: 100%;
+										height: max-content;
+										display: flex;
+										justify-content: flex-start;
+										align-items: center;
+										border-top-left-radius: 20px;
+										border-bottom-left-radius: 20px;
+										font-size: 0.9em;
+
+										.fuel__name {
+											width: 50%;
+											display: flex;
+											justify-content: center;
+											background-color: var(--secondary-background);
+											border: 2px solid var(--secondary-background);
+
+											border-top-left-radius: 16px;
+											border-bottom-left-radius: 16px;
+											padding: 2.5px;
+										}
+										.fuel__price {
+											width: 50%;
+											display: flex;
+											justify-content: center;
+											border: 2px solid var(--secondary-background);
+											background-color: var(--warning-color);
+											color: var(--card-secondary-text-color);
+											border-top-right-radius: 16px;
+											border-bottom-right-radius: 16px;
+											padding: 2.5px;
+										}
+									}
+
+									.fuel__available {
+										&.fuel__available-true {
+											svg {
+												fill: var(--success-color);
+											}
+										}
+										&.fuel__available-false {
+											svg {
+												fill: var(--error-color);
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					.card__bottom {
+						width: 100%;
+						display: flex;
+						justify-content: center;
+						font-size: 0.8em;
+						color: var(--card-tertiary-text-color);
+					}
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 400px) {
+	.profil__settings {
+		flex-direction: column;
+	}
+
+	.gasStations__container {
+		h1 {
+			font-size: 1.5em;
+		}
+		.gasStations__details {
+			width: 100%;
+
+			.gasStation__card {
+				.card__delete {
+					display: flex;
+					svg {
+						width: 25px !important;
+						height: 25px !important;
+					}
+				}
+				.card__top {
+					flex-direction: column;
+					.card__left {
+						width: 80% !important;
+						margin: 0 auto;
+					}
+					.card__right {
+						width: 80% !important;
+						margin: 0 auto;
+					}
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 1050px) {
+	.gasStations__container {
+		.gasStations__details {
+			width: 100%;
+			.gasStation__card {
+				.card__delete {
+					display: flex !important;
+
+					svg {
+						width: 25px !important;
+						height: 25px !important;
+					}
+				}
+				.card__top {
+					flex-direction: column;
+					.card__left {
+						width: 80% !important;
+						margin: 0 auto;
+					}
+					.card__right {
+						width: 80% !important;
+						margin: 0 auto;
+					}
+				}
+			}
+		}
 	}
 }

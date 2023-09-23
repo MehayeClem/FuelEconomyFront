@@ -31,3 +31,8 @@ export type LoginFormData = {
 	email: string;
 	password: string;
 };
+
+export type UpdateFormData = {
+	email?: string;
+	username?: string;
+};
