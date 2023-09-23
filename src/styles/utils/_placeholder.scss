@@ -1,0 +1,26 @@
+%button {
+	border: none;
+	outline: none;
+	cursor: pointer;
+	font-family: var(--font-family);
+	background-color: var(--main-background);
+}
+
+%input {
+	outline: none;
+	border: 1px solid var(--input-outline-color);
+	font-family: var(--font-family);
+	background-color: var(--input-color);
+	color: var(--input-text-color);
+	&:-webkit-autofill,
+	&:-webkit-autofill:hover {
+		background-color: transparent;
+		-webkit-box-shadow: 0 0 0px 1000px var(--input-color) inset;
+	}
+}
+
+%a {
+	text-decoration: none;
+	color: unset;
+	cursor: pointer;
+}

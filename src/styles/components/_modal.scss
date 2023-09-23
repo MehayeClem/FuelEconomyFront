@@ -1,0 +1,54 @@
+@import './form';
+
+.modal__container {
+	top: 0;
+	left: 0;
+	position: fixed;
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	background-color: rgba($color: var(--main-background-rgb), $alpha: 0.5);
+	backdrop-filter: blur(5px);
+	z-index: 1000;
+
+	.modal__wrapper {
+		position: relative;
+		width: clamp(350px, 95%, 600px);
+		height: max-content;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		gap: 30px;
+		background-color: var(--main-background);
+		border-radius: 10px;
+
+		.modal__close {
+			position: absolute;
+			top: 10px;
+			right: 15px;
+			cursor: pointer;
+
+			svg {
+				width: 30px;
+				height: 30px;
+			}
+
+			&:hover {
+				svg {
+					fill: var(--error-color);
+				}
+			}
+		}
+		h2 {
+			padding-top: 50px;
+		}
+
+		.form__btn {
+			margin-bottom: 60px;
+		}
+	}
+}

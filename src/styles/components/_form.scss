@@ -1,0 +1,99 @@
+.form__content {
+	width: clamp(80%, 75%, 100%);
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	flex-grow: 1;
+	gap: 10px;
+
+	.input__container {
+		width: clamp(90%, 350px, 100%);
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+
+		label {
+			width: 100%;
+			margin: 0 auto;
+			font-size: clamp(0.9em, 2vw, 1em);
+		}
+
+		.input__field {
+			position: relative;
+			width: 100%;
+			display: flex;
+			justify-content: center;
+
+			input {
+				@extend %input;
+				width: 100%;
+				height: 35px;
+				font-size: clamp(0.9em, 2vw, 1em);
+				border-radius: 5px;
+				padding: 10px;
+			}
+
+			button {
+				@extend %button;
+				position: absolute;
+				height: 100%;
+				bottom: 0;
+				right: 15px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				background: none;
+				color: var(--button-eye-color);
+
+				svg {
+					width: 20px;
+					height: 20px;
+				}
+			}
+		}
+
+		.form__error {
+			width: 100%;
+			font-size: clamp(0.8em, 2vw, 0.9em);
+			color: var(--error-color);
+			text-align: justify;
+		}
+	}
+
+	.form__btn {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		button {
+			@extend %button;
+			width: 90%;
+			padding: 10px;
+			margin-top: 15px;
+			font-size: clamp(0.9em, 2vw, 1em);
+			border-radius: 5px;
+			background-color: var(--button-background);
+			color: var(--button-text-color);
+		}
+	}
+}
+
+.form__link {
+	width: 75%;
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	font-size: clamp(0.9em, 2vw, 1em);
+
+	span {
+		padding-right: 10px;
+	}
+	a {
+		@extend %a;
+		&:hover {
+			color: var(--tertiary-background);
+			text-decoration: underline;
+		}
+	}
+}

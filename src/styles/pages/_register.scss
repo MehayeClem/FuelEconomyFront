@@ -1,0 +1,61 @@
+@import '../components/form';
+
+.register__container {
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: url('../../public/images/GasStation.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+
+	.form__card {
+		position: relative;
+		width: clamp(350px, 95%, 600px);
+		height: max-content;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		gap: 30px;
+		background-color: var(--form-background);
+		border-radius: 10px;
+
+		.home__link {
+			position: absolute;
+			top: 15px;
+			left: 15px;
+			width: 200px;
+			display: flex;
+
+			a {
+				width: 100%;
+				display: flex;
+				align-items: center;
+				gap: 5px;
+				font-size: clamp(0.8em, 2vw, 1em);
+				color: var(--card-primary-text-color);
+				text-decoration: none;
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+
+		.form__title {
+			padding-top: 50px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			font-size: clamp(0.8em, 2vw, 1em);
+
+			img {
+				width: 70px;
+				height: 70px;
+			}
+		}
+	}
+}
