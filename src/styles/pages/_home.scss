@@ -1,9 +1,12 @@
+@import '../components/map';
+
 .home__container {
 	width: 100%;
 	height: calc(100vh - 75px);
 	display: flex;
 	align-items: center;
 	flex-direction: column;
+	gap: 50px;
 
 	.search__container {
 		width: 100%;
@@ -13,7 +16,7 @@
 		margin: 50px 0;
 
 		.search__controller {
-			width: 1000px;
+			width: clamp(350px, 90%, 1000px);
 			height: 75px;
 			display: flex;
 
@@ -35,11 +38,43 @@
 					justify-content: center;
 					align-items: center;
 					gap: 20px;
+					cursor: pointer;
+
+					&.disabled {
+						pointer-events: none;
+						opacity: 0.5;
+					}
 
 					svg {
 						width: 30px;
 						height: 30px;
 						fill: var(--button-eye-color);
+					}
+
+					.button__loader__container {
+						width: 48px;
+						height: 48px;
+						border-radius: 50%;
+						position: relative;
+						animation: rotate 1s linear infinite;
+
+						.button__loader {
+							&::after,
+							&::before {
+								content: '';
+								box-sizing: border-box;
+								position: absolute;
+								inset: 0px;
+								border-radius: 50%;
+								border: 5px solid #fff;
+								animation: prixClipFix 2s linear infinite;
+							}
+
+							&::after {
+								transform: rotate3d(90, 90, 0, 180deg);
+								border-color: #ff3d00;
+							}
+						}
 					}
 				}
 			}
@@ -58,6 +93,9 @@
 					border-top-right-radius: 15px;
 					border-bottom-right-radius: 15px;
 					background-color: var(--input-color);
+				}
+				.search__instructions {
+					padding-top: 50px;
 				}
 			}
 		}
@@ -78,5 +116,66 @@
 			width: 50%;
 			height: 100%;
 		}
+	}
+}
+
+@media (max-width: 1050px) {
+	.home__container {
+		.map__container {
+			flex-direction: column;
+			.leaflet-container {
+				width: 100%;
+				height: 500px;
+			}
+			.map__infos {
+				width: 100%;
+				height: max-content;
+			}
+		}
+	}
+}
+
+@media (max-width: 450px) {
+	.home__container {
+		.search__controller {
+			flex-direction: column;
+			height: 150px !important;
+			.search__left {
+				width: 100% !important;
+				height: 100% !important;
+				border-top-left-radius: 15px !important;
+				border-top-right-radius: 15px !important;
+				border-bottom-left-radius: 0px !important;
+			}
+			.search__right {
+				input {
+					border-top-right-radius: 0px !important;
+					border-bottom-right-radius: 15px !important;
+					border-bottom-left-radius: 15px !important;
+				}
+			}
+		}
+	}
+}
+
+@keyframes rotate {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes prixClipFix {
+	0% {
+		clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
+	}
+	50% {
+		clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
+	}
+	75%,
+	100% {
+		clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
 	}
 }

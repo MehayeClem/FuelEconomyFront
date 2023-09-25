@@ -1,6 +1,8 @@
-import { LatLngExpression } from 'leaflet';
+import { fullGasStationProps, gasStationProps } from './gasStation';
 
 export type MapProps = {
-	center: LatLngExpression;
+	center: [number, number];
 	zoom: number;
+	gasStations: gasStationProps[];
+	isLoading: boolean;
 };

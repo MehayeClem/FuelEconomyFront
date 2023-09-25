@@ -1,0 +1,166 @@
+.map__loader__container {
+	width: 50%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.map__loader {
+		width: 64px;
+		height: 64px;
+		position: relative;
+		background: #fff;
+		border-radius: 50%;
+		transform: rotate(45deg);
+		animation: rotate 2s linear infinite;
+
+		&::before {
+			content: '';
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			width: 15px;
+			height: 30px;
+			background: #ff3d00;
+			transform: skew(5deg, 60deg) translate(-50%, -5%);
+		}
+
+		&::after {
+			content: '';
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+			background: #fff;
+			transform: translate(-50%, -50%);
+		}
+	}
+}
+
+.leaflet-popup-content-wrapper {
+	width: max-content;
+	padding: 20px !important;
+	background-color: var(--main-background) !important;
+	.leaflet-popup-content {
+		width: 100% !important;
+		margin: none !important;
+		.popup__container {
+			width: 100%;
+			height: 100%;
+			.card__top {
+				width: 100%;
+				display: flex;
+				justify-content: space-around !important;
+				flex-grow: 1;
+				gap: 10px;
+				.card__left {
+					width: 40%;
+					display: flex;
+					flex-direction: column;
+				}
+				.card__right {
+					width: 45%;
+					display: flex;
+					flex-direction: column;
+
+					ul {
+						display: flex;
+						gap: 5px;
+						flex-direction: column;
+						list-style: none;
+						padding: inherit;
+
+						.fuel__details {
+							width: 100%;
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							gap: 10px;
+
+							.fuel__infos {
+								width: 100%;
+								height: max-content;
+								display: flex;
+								justify-content: flex-start;
+								align-items: center;
+								border-top-left-radius: 20px;
+								border-bottom-left-radius: 20px;
+								font-size: 0.9em;
+
+								.fuel__name {
+									width: 50%;
+									display: flex;
+									justify-content: center;
+									background-color: var(--secondary-background);
+									border: 2px solid var(--secondary-background);
+
+									border-top-left-radius: 16px;
+									border-bottom-left-radius: 16px;
+									padding: 2.5px;
+								}
+								.fuel__price {
+									width: 50%;
+									display: flex;
+									justify-content: center;
+									border: 2px solid var(--secondary-background);
+									background-color: var(--warning-color);
+									color: var(--card-secondary-text-color);
+									border-top-right-radius: 16px;
+									border-bottom-right-radius: 16px;
+									padding: 2.5px;
+								}
+							}
+
+							.fuel__available {
+								&.fuel__available-true {
+									svg {
+										fill: var(--success-color);
+									}
+								}
+								&.fuel__available-false {
+									svg {
+										fill: var(--error-color);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			.card__bottom {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				font-size: 0.8em;
+				color: var(--card-tertiary-text-color);
+			}
+		}
+	}
+}
+
+@keyframes rotate {
+	0% {
+		transform: rotate(45deg);
+	}
+	30%,
+	50%,
+	70% {
+		transform: rotate(230deg);
+	}
+	40%,
+	60%,
+	80% {
+		transform: rotate(240deg);
+	}
+	100% {
+		transform: rotate(245deg);
+	}
+}
+
+@media (max-width: 1050px) {
+	.map__loader__container {
+		width: 100%;
+	}
+}
