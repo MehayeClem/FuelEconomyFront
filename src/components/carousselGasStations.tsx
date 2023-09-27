@@ -13,70 +13,23 @@ import { calculateTimeDifference } from '../utils/date';
 
 export default function CarousselGasStation({
 	gasStationsData,
-	deleteGasStation
+	deleteGasStation,
+	carrousselSettings
 }: CarousselGasStationProps) {
-	function CustomPrevArrow({ onClick }: CustomArrowProps) {
-		return (
-			<div className="custom__arrow prev__arrow" onClick={onClick}>
-				<div>
-					<FaAngleLeft />
-				</div>
-			</div>
-		);
-	}
-
-	function CustomNextArrow({ onClick }: CustomArrowProps) {
-		return (
-			<div className="custom__arrow next__arrow" onClick={onClick}>
-				<div>
-					<FaAngleRight />
-				</div>
-			</div>
-		);
-	}
-
-	const carrousselSettings = {
-		dots: true,
-		infinite: false,
-		speed: 500,
-		slidesToShow: 2,
-		slidesToScroll: 1,
-		initialSlide: 0,
-
-		responsive: [
-			{
-				breakpoint: 1024,
-				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 2,
-					infinite: true,
-					dots: true
-				}
-			},
-			{
-				breakpoint: 600,
-				settings: {
-					slidesToShow: 1,
-					slidesToScroll: 1
-				}
-			}
-		],
-		prevArrow: <CustomPrevArrow />,
-		nextArrow: <CustomNextArrow />
-	};
-
 	return (
 		<Slider {...carrousselSettings}>
 			{gasStationsData.map((gasStation, index) => (
 				<div key={index} className="gasStation__card">
-					<div
-						className="card__delete"
-						onClick={() => {
-							deleteGasStation(gasStation.id);
-						}}
-					>
-						<FaTrashCan />
-					</div>
+					{deleteGasStation && (
+						<div
+							className="card__delete"
+							onClick={() => {
+								deleteGasStation(gasStation.id);
+							}}
+						>
+							<FaTrashCan />
+						</div>
+					)}
 					<div className="card__top">
 						<div className="card__left">
 							<h2>{gasStation.brand}</h2>

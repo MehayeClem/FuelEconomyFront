@@ -1,9 +1,21 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { FaMapLocationDot, FaS, FaSpinner } from 'react-icons/fa6';
+import {
+	FaAngleLeft,
+	FaAngleRight,
+	FaMapLocationDot,
+	FaRegCircleCheck,
+	FaRegCircleXmark,
+	FaS,
+	FaSpinner
+} from 'react-icons/fa6';
 import { fullGasStationProps, gasStationProps } from '../types/gasStation';
 import dynamic from 'next/dynamic';
+import { calculateTimeDifference } from '../utils/date';
+import { CustomArrowProps } from 'react-slick';
+import { CarouselSettingsProps } from '../types/caroussel';
+import CarousselGasStation from '../components/carousselGasStations';
 
 export default function Home() {
 	const [mapCenter, setMapCenter] = useState<[number, number]>([
@@ -118,6 +130,57 @@ export default function Home() {
 		ssr: false
 	});
 
+	const carrousselSettings: CarouselSettingsProps = {
+		dots: true,
+		infinite: false,
+		speed: 500,
+		slidesToShow: 1,
+		slidesToScroll: 1,
+		initialSlide: 0,
+		rows: 1,
+		responsive: [
+			{
+				breakpoint: 1024,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					infinite: false,
+					dots: false
+				}
+			},
+			{
+				breakpoint: 600,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					dots: false
+				}
+			}
+		],
+		prevArrow: <CustomPrevArrow />,
+		nextArrow: <CustomNextArrow />
+	};
+
+	function CustomPrevArrow({ onClick }: CustomArrowProps) {
+		return (
+			<div className="custom__arrow prev__arrow" onClick={onClick}>
+				<div>
+					<FaAngleLeft />
+				</div>
+			</div>
+		);
+	}
+
+	function CustomNextArrow({ onClick }: CustomArrowProps) {
+		return (
+			<div className="custom__arrow next__arrow" onClick={onClick}>
+				<div>
+					<FaAngleRight />
+				</div>
+			</div>
+		);
+	}
+
 	return (
 		<section className="home__container">
 			<div className="search__container">
@@ -156,7 +219,16 @@ export default function Home() {
 					gasStations={gasStations}
 					isLoading={isLoading}
 				></LeafletMap>
-				<div className="map__infos"></div>
+				<div className="map__infos">
+					{gasStations.length === 0 ? (
+						<div>Aucune stations d'essences sur la carte</div>
+					) : (
+						<CarousselGasStation
+							gasStationsData={gasStations}
+							carrousselSettings={carrousselSettings}
+						/>
+					)}
+				</div>
 			</div>
 		</section>
 	);

@@ -156,6 +156,7 @@
 						display: flex;
 						justify-content: center;
 						align-items: center;
+						z-index: 1 !important;
 
 						&.prev__arrow {
 							left: -35px;
@@ -203,7 +204,7 @@
 				.gasStation__card {
 					position: relative;
 					width: clamp(20%, 450px, 100%) !important;
-
+					height: 200px;
 					display: flex !important;
 					flex-direction: column;
 					gap: 20px;
@@ -333,35 +334,60 @@
 	}
 }
 
-@media (max-width: 400px) {
-	.profil__settings {
-		flex-direction: column;
-	}
-
-	.gasStations__container {
-		h1 {
-			font-size: 1.5em;
+@media (max-width: 450px) {
+	.profil__wrapper {
+		.profil__settings {
+			flex-direction: column;
 		}
-		.gasStations__details {
-			width: 100%;
 
-			.gasStation__card {
-				.card__delete {
-					display: flex;
-					svg {
-						width: 25px !important;
-						height: 25px !important;
+		.gasStations__container {
+			h1 {
+				font-size: 1.5em;
+			}
+			.gasStations__details {
+				width: 100%;
+
+				.slick-slider {
+					.custom__arrow {
+						&.prev__arrow {
+							left: -25px !important;
+						}
+
+						&.next__arrow {
+							right: -25px !important;
+						}
+
+						div {
+							svg {
+								width: 20px !important;
+								height: 20px !important;
+							}
+						}
+					}
+
+					.slick-track {
+						gap: 5px !important;
 					}
 				}
-				.card__top {
-					flex-direction: column;
-					.card__left {
-						width: 80% !important;
-						margin: 0 auto;
+				.gasStation__card {
+					height: 100%;
+					.card__delete {
+						display: flex;
+						svg {
+							width: 25px !important;
+							height: 25px !important;
+						}
 					}
-					.card__right {
-						width: 80% !important;
-						margin: 0 auto;
+					.card__top {
+						flex-direction: column;
+						.card__left {
+							width: 80% !important;
+							margin: 0 auto;
+						}
+						.card__right {
+							width: 80% !important;
+							margin: 0 auto;
+						}
 					}
 				}
 			}
@@ -374,6 +400,7 @@
 		.gasStations__details {
 			width: 100%;
 			.gasStation__card {
+				height: 100% !important;
 				.card__delete {
 					display: flex !important;
 

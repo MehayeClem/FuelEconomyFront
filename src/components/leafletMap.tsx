@@ -6,7 +6,6 @@ import MarkerIcon from '../../node_modules/leaflet/dist/images/marker-icon.png';
 import MarkerShadow from '../../node_modules/leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/leaflet.css';
 import { MapProps } from '../types/map';
-import { useState } from 'react';
 import { FaRegCircleCheck, FaRegCircleXmark } from 'react-icons/fa6';
 import { calculateTimeDifference } from '../utils/date';
 

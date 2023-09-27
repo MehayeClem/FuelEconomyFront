@@ -115,6 +115,168 @@
 		.map__infos {
 			width: 50%;
 			height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			text-align: center;
+			background-color: var(--secondary-background);
+
+			.slick-slider {
+				.custom__arrow {
+					position: absolute;
+					top: 0;
+					height: 100%;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					z-index: 1 !important;
+
+					&.prev__arrow {
+						left: 50px;
+					}
+
+					&.next__arrow {
+						right: 50px;
+					}
+
+					div {
+						width: 100%;
+						height: max-content;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						background-color: var(--tertiary-background);
+						border-radius: 50%;
+						padding: 5px;
+
+						svg {
+							width: 30px;
+							height: 30px;
+							fill: var(--secondary-background);
+							&:hover {
+								cursor: pointer;
+							}
+						}
+					}
+				}
+
+				.slick-track {
+					width: 100%;
+
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					gap: 20px;
+
+					.slick-slide {
+						div {
+							display: flex;
+							justify-content: center;
+						}
+					}
+				}
+			}
+			.gasStation__card {
+				position: relative;
+				width: clamp(20%, 450px, 100%) !important;
+				height: 200px;
+				display: flex !important;
+				flex-direction: column;
+				gap: 20px;
+				border-radius: 10px;
+				background-color: var(--main-background);
+				color: inherit;
+				padding: 25px 0 20px 0;
+				text-align: initial;
+
+				.card__top {
+					width: 100%;
+					display: flex;
+					justify-content: space-around !important;
+					flex-grow: 1;
+					gap: 10px;
+					.card__left {
+						width: 40%;
+						display: flex;
+						flex-direction: column;
+					}
+					.card__right {
+						width: 40%;
+						display: flex;
+						flex-direction: column;
+
+						ul {
+							display: flex;
+							gap: 5px;
+							flex-direction: column;
+							list-style: none;
+							padding: inherit;
+
+							.fuel__details {
+								width: 100%;
+								display: flex;
+								justify-content: center;
+								align-items: center;
+								gap: 10px;
+
+								.fuel__infos {
+									width: 100%;
+									height: max-content;
+									display: flex;
+									justify-content: flex-start;
+									align-items: center;
+									border-top-left-radius: 20px;
+									border-bottom-left-radius: 20px;
+									font-size: 0.9em;
+
+									.fuel__name {
+										width: 50%;
+										display: flex;
+										justify-content: center;
+										background-color: var(--secondary-background);
+										border: 2px solid var(--secondary-background);
+
+										border-top-left-radius: 16px;
+										border-bottom-left-radius: 16px;
+										padding: 2.5px;
+									}
+									.fuel__price {
+										width: 50%;
+										display: flex;
+										justify-content: center;
+										border: 2px solid var(--secondary-background);
+										background-color: var(--warning-color);
+										color: var(--card-secondary-text-color);
+										border-top-right-radius: 16px;
+										border-bottom-right-radius: 16px;
+										padding: 2.5px;
+									}
+								}
+
+								.fuel__available {
+									&.fuel__available-true {
+										svg {
+											fill: var(--success-color);
+										}
+									}
+									&.fuel__available-false {
+										svg {
+											fill: var(--error-color);
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				.card__bottom {
+					width: 100%;
+					display: flex;
+					justify-content: center;
+					font-size: 0.8em;
+					color: var(--card-tertiary-text-color);
+				}
+			}
 		}
 	}
 }
@@ -129,7 +291,27 @@
 			}
 			.map__infos {
 				width: 100%;
-				height: max-content;
+				height: 500px;
+
+				.slick-track {
+					gap: 0;
+				}
+
+				.gasStation__card {
+					width: 50%;
+					height: 100%;
+					.card__top {
+						flex-direction: column;
+						.card__left {
+							width: 80% !important;
+							margin: 0 auto;
+						}
+						.card__right {
+							width: 80% !important;
+							margin: 0 auto;
+						}
+					}
+				}
 			}
 		}
 	}
@@ -152,6 +334,56 @@
 					border-top-right-radius: 0px !important;
 					border-bottom-right-radius: 15px !important;
 					border-bottom-left-radius: 15px !important;
+				}
+			}
+		}
+
+		.map__container {
+			height: max-content !important;
+			.map__infos {
+				text-align: center !important;
+				.slick-slide {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				}
+				.slick-slider {
+					.custom__arrow {
+						&.prev__arrow {
+							left: 0px;
+						}
+
+						&.next__arrow {
+							right: 0px;
+						}
+
+						div {
+							svg {
+								width: 20px;
+								height: 20px;
+							}
+						}
+					}
+
+					.slick-track {
+						gap: 0;
+					}
+				}
+
+				.gasStation__card {
+					max-width: 90% !important;
+					min-width: 375px !important;
+					.card__top {
+						flex-direction: column;
+						.card__left {
+							width: 80% !important;
+							margin: 0 auto;
+						}
+						.card__right {
+							width: 80% !important;
+							margin: 0 auto;
+						}
+					}
 				}
 			}
 		}

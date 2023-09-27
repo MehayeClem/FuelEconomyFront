@@ -11,7 +11,9 @@ import {
 	FaEnvelope,
 	FaRegCircleXmark,
 	FaRegCircleCheck,
-	FaTrashCan
+	FaTrashCan,
+	FaAngleRight,
+	FaAngleLeft
 } from 'react-icons/fa6';
 import defaultAvatar from '../../../public/images/default_avatar.png';
 import { useState } from 'react';
@@ -23,6 +25,11 @@ import Modal from '../../../components/modal';
 import { ZodType, z } from 'zod';
 import { InputFields, UpdateFormData } from '../../../types/form';
 import CarousselGasStation from '../../../components/carousselGasStations';
+import { CustomArrowProps } from 'react-slick';
+import {
+	CarouselSettingsProps,
+	CarousselGasStationProps
+} from '../../../types/caroussel';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
 	const axiosInstance: AxiosInstance = createAxiosInstance(context);
@@ -156,6 +163,57 @@ export default function Profil({
 			label: 'Email'
 		}
 	];
+
+	const carrousselSettings: CarouselSettingsProps = {
+		dots: true,
+		infinite: false,
+		speed: 500,
+		slidesToShow: 2,
+		slidesToScroll: 1,
+		initialSlide: 0,
+		rows: 1,
+		responsive: [
+			{
+				breakpoint: 1024,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					infinite: false,
+					dots: false
+				}
+			},
+			{
+				breakpoint: 600,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					dots: false
+				}
+			}
+		],
+		prevArrow: <CustomPrevArrow />,
+		nextArrow: <CustomNextArrow />
+	};
+
+	function CustomPrevArrow({ onClick }: CustomArrowProps) {
+		return (
+			<div className="custom__arrow prev__arrow" onClick={onClick}>
+				<div>
+					<FaAngleLeft />
+				</div>
+			</div>
+		);
+	}
+
+	function CustomNextArrow({ onClick }: CustomArrowProps) {
+		return (
+			<div className="custom__arrow next__arrow" onClick={onClick}>
+				<div>
+					<FaAngleRight />
+				</div>
+			</div>
+		);
+	}
 
 	async function deleteGasStation(gasStationId: string) {
 		const axiosInstance: AxiosInstance = createAxiosInstance();
@@ -299,6 +357,7 @@ export default function Profil({
 							<CarousselGasStation
 								gasStationsData={gasStationsData}
 								deleteGasStation={deleteGasStation}
+								carrousselSettings={carrousselSettings}
 							/>
 						)}
 					</div>
