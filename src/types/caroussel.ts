@@ -4,6 +4,7 @@ export type CarousselGasStationProps = {
 	gasStationsData: gasStationProps[];
 	deleteGasStation?: (gasStationId: string) => void;
 	carrousselSettings: CarouselSettingsProps;
+	saveGasStation?: (gasStationId: string) => void;
 };
 
 type CustomArrowProps = {

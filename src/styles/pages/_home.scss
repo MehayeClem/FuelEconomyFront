@@ -85,17 +85,35 @@
 
 				border-top-right-radius: 15px;
 				border-bottom-right-radius: 15px;
-
-				input {
+				form {
+					position: relative;
 					width: 100%;
 					height: 100%;
-					padding: 20px;
-					border-top-right-radius: 15px;
-					border-bottom-right-radius: 15px;
-					background-color: var(--input-color);
-				}
-				.search__instructions {
-					padding-top: 50px;
+					input {
+						width: 100%;
+						height: 100%;
+						padding: 20px;
+						border-top-right-radius: 15px;
+						border-bottom-right-radius: 15px;
+						background-color: var(--input-color);
+					}
+
+					.search__icon {
+						position: absolute;
+						right: 0;
+						top: 0;
+						width: 40px;
+						height: 100%;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						border-top-right-radius: 15px;
+						border-bottom-right-radius: 15px;
+						background-color: var(--button-background);
+						color: var(--button-text-color);
+						box-shadow: -5px 0 5px rgba(0, 0, 0, 0.2);
+						cursor: pointer;
+					}
 				}
 			}
 		}
@@ -188,6 +206,32 @@
 				color: inherit;
 				padding: 25px 0 20px 0;
 				text-align: initial;
+
+				.card__update {
+					position: absolute;
+					top: 5px;
+					right: 10px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					padding: 5px;
+					border-radius: 5px;
+
+					&:hover {
+						cursor: pointer;
+					}
+
+					svg {
+						width: 20px;
+						height: 20px;
+					}
+				}
+
+				&:hover {
+					svg {
+						fill: var(--error-color);
+					}
+				}
 
 				.card__top {
 					width: 100%;

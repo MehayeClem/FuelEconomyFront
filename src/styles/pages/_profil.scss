@@ -147,6 +147,7 @@
 				flex-direction: column;
 				gap: 20px;
 				margin: 50px 0 50px 0;
+				text-align: center;
 
 				.slick-slider {
 					.custom__arrow {
@@ -204,7 +205,7 @@
 				.gasStation__card {
 					position: relative;
 					width: clamp(20%, 450px, 100%) !important;
-					height: 200px;
+					height: 250px;
 					display: flex !important;
 					flex-direction: column;
 					gap: 20px;
@@ -212,6 +213,7 @@
 					background-color: var(--main-background);
 					color: inherit;
 					padding: 25px 0 20px 0;
+					text-align: inherit;
 
 					.card__delete {
 						position: absolute;
@@ -223,7 +225,6 @@
 						padding: 5px;
 						border-radius: 5px;
 						color: var(--error-color);
-						display: none;
 
 						&:hover {
 							cursor: pointer;
@@ -232,12 +233,6 @@
 						svg {
 							width: 20px;
 							height: 20px;
-						}
-					}
-
-					&:hover {
-						.card__delete {
-							display: flex;
 						}
 					}
 
@@ -402,8 +397,6 @@
 			.gasStation__card {
 				height: 100% !important;
 				.card__delete {
-					display: flex !important;
-
 					svg {
 						width: 25px !important;
 						height: 25px !important;

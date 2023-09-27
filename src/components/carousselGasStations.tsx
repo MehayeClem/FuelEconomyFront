@@ -5,22 +5,33 @@ import { CarousselGasStationProps } from '../types/caroussel';
 import {
 	FaAngleLeft,
 	FaAngleRight,
+	FaHeart,
 	FaRegCircleCheck,
 	FaRegCircleXmark,
 	FaTrashCan
 } from 'react-icons/fa6';
 import { calculateTimeDifference } from '../utils/date';
+import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 
 export default function CarousselGasStation({
 	gasStationsData,
 	deleteGasStation,
-	carrousselSettings
+	carrousselSettings,
+	saveGasStation
 }: CarousselGasStationProps) {
+	const [isConnected, setIsConnected] = useState(false);
+
+	useEffect(() => {
+		if (Cookies.get('refreshToken')) {
+			setIsConnected(true);
+		}
+	}, []);
 	return (
 		<Slider {...carrousselSettings}>
 			{gasStationsData.map((gasStation, index) => (
 				<div key={index} className="gasStation__card">
-					{deleteGasStation && (
+					{deleteGasStation && isConnected && (
 						<div
 							className="card__delete"
 							onClick={() => {
@@ -28,6 +39,16 @@ export default function CarousselGasStation({
 							}}
 						>
 							<FaTrashCan />
+						</div>
+					)}
+					{saveGasStation && isConnected && (
+						<div
+							className="card__update"
+							onClick={() => {
+								saveGasStation(gasStation.id);
+							}}
+						>
+							<FaHeart />
 						</div>
 					)}
 					<div className="card__top">

@@ -40,15 +40,20 @@
 }
 
 .leaflet-popup-content-wrapper {
-	width: max-content;
+	width: 400px;
 	padding: 20px !important;
 	background-color: var(--main-background) !important;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	.leaflet-popup-content {
 		width: 100% !important;
 		margin: none !important;
 		.popup__container {
 			width: 100%;
 			height: 100%;
+			color: var(--text-color);
+			font-family: var(--font-family);
 			.card__top {
 				width: 100%;
 				display: flex;
@@ -135,6 +140,31 @@
 				justify-content: center;
 				font-size: 0.8em;
 				color: var(--card-tertiary-text-color);
+			}
+		}
+	}
+}
+
+@media (max-width: 1050px) {
+	.leaflet-popup-content-wrapper {
+		width: 250px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		.leaflet-popup-content {
+			width: 100%;
+			.popup__container {
+				.card__top {
+					flex-direction: column;
+					.card__left {
+						width: 80% !important;
+						margin: 0 auto;
+					}
+					.card__right {
+						width: 80% !important;
+						margin: 0 auto;
+					}
+				}
 			}
 		}
 	}
