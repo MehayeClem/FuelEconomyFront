@@ -105,7 +105,13 @@ export default function Register() {
 					</Link>
 				</div>
 				<div className="form__title">
-					<Image src={FeLogo} alt="FuelEconomy logo" priority></Image>
+					<Image
+						src="/images/FeLogo.png"
+						width={70}
+						height={70}
+						alt="FuelEconomy logo"
+						priority
+					></Image>
 					<h1>Inscription</h1>
 				</div>
 

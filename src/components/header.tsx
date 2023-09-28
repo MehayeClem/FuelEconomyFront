@@ -53,13 +53,19 @@ export default function Header() {
 		<header className="header__container">
 			<div className="header__logo">
 				<Link href="/">
-					<Image src={FeLogo} alt="FuelEconomy Logo" priority></Image>
+					<Image
+						src="/images/FeLogo.png"
+						width={50}
+						height={50}
+						alt="FuelEconomy Logo"
+						priority
+					></Image>
 				</Link>
 			</div>
 			<div className={`header__content ${isNavbarOpen ? 'mobile' : ''}`}>
 				<ul className="header__links">
 					<li className="header__link" onClick={handleShowMenu}>
-						<Link href="/">Station à Proximité</Link>
+						<Link href="/">Station à proximité</Link>
 					</li>
 					{userData && (
 						<li className="header__link" onClick={handleShowMenu}>
@@ -71,7 +77,9 @@ export default function Header() {
 					{userData ? (
 						<>
 							<Image
-								src={defaultAvatar}
+								src="/images/default_avatar.png"
+								width={40}
+								height={40}
 								alt="Image de profil"
 								priority
 							></Image>

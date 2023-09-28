@@ -85,7 +85,13 @@ export default function Login() {
 					</Link>
 				</div>
 				<div className="form__title">
-					<Image src={FeLogo} alt="FuelEconomy logo" priority></Image>
+					<Image
+						src="/images/FeLogo.png"
+						width={70}
+						height={70}
+						alt="FuelEconomy logo"
+						priority
+					></Image>
 					<h1>Connexion</h1>
 				</div>
 

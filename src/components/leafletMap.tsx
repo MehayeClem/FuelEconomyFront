@@ -32,13 +32,13 @@ export default function LeafletMap({
 					<Marker
 						icon={
 							new L.Icon({
-								iconUrl: UserMarker.src,
-								iconRetinaUrl: UserMarker.src,
+								iconUrl: '/images/UserMarker.png',
+								iconRetinaUrl: '/images/UserMarker.png',
 								iconSize: [48, 48],
 								iconAnchor: [26, 48],
 								tooltipAnchor: [16, -32],
 								popupAnchor: [0, -32],
-								shadowUrl: MarkerShadow.src,
+								shadowUrl: '/images/marker-shadow.png',
 								shadowSize: [48, 48],
 								shadowAnchor: [16, 48]
 							})
@@ -54,12 +54,12 @@ export default function LeafletMap({
 								key={gasStation.id}
 								icon={
 									new L.Icon({
-										iconUrl: GasStationMarker.src,
-										iconRetinaUrl: GasStationMarker.src,
+										iconUrl: '/images/GasStationMarker.png',
+										iconRetinaUrl: '/images/GasStationMarker.png',
 										iconSize: [48, 48],
 										iconAnchor: [26, 48],
 										popupAnchor: [0, -48],
-										shadowUrl: MarkerShadow.src,
+										shadowUrl: '/images/marker-shadow.png',
 										shadowSize: [48, 48],
 										shadowAnchor: [25, 48]
 									})

@@ -319,7 +319,9 @@ export default function Profil({
 					<div className="profil__top">
 						<div className="profil__img">
 							<Image
-								src={defaultAvatar}
+								src="/images/default_avatar.png"
+								width={150}
+								height={150}
 								alt="Image de profil"
 								priority
 							></Image>
