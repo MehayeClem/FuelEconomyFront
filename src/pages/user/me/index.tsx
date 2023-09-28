@@ -314,57 +314,63 @@ export default function Profil({
 					onClose={closeModal}
 				/>
 			)}
-			<div className="profil__wrapper">
-				<div className="profil__details">
-					<div className="profil__top">
-						<div className="profil__img">
-							<Image
-								src="/images/default_avatar.png"
-								width={150}
-								height={150}
-								alt="Image de profil"
-								priority
-							></Image>
-						</div>
 
-						<div className="profil__settings">
-							<div className="profil__edit" onClick={openModal}>
-								<FaPencil />
+			{user ? (
+				<div className="profil__wrapper">
+					<div className="profil__details">
+						<div className="profil__top">
+							<div className="profil__img">
+								<Image
+									src="/images/default_avatar.png"
+									width={150}
+									height={150}
+									alt="Image de profil"
+									priority
+								></Image>
+							</div>
+
+							<div className="profil__settings">
+								<div className="profil__edit" onClick={openModal}>
+									<FaPencil />
+								</div>
+							</div>
+						</div>
+						<div className="profil__bottom">
+							<div className="profil__username">
+								<h1>{userData.username}</h1>
+								<span className="profil__account">
+									Compte créé le{' '}
+									{formatDateToFrench(userData.createdAt)}{' '}
+								</span>
+							</div>
+							<div className="profil__infos">
+								<ul className="profil__list">
+									<li className="profil__info">
+										<FaEnvelope />
+										{userData.email}
+									</li>
+								</ul>
 							</div>
 						</div>
 					</div>
-					<div className="profil__bottom">
-						<div className="profil__username">
-							<h1>{userData.username}</h1>
-							<span className="profil__account">
-								Compte créé le {formatDateToFrench(userData.createdAt)}{' '}
-							</span>
-						</div>
-						<div className="profil__infos">
-							<ul className="profil__list">
-								<li className="profil__info">
-									<FaEnvelope />
-									{userData.email}
-								</li>
-							</ul>
+					<div className="gasStations__container">
+						<h1>Mes stations favorites</h1>
+						<div className="gasStations__details">
+							{gasStationsData.length === 0 ? (
+								<div>Aucune stations d'essences favorites</div>
+							) : (
+								<CarousselGasStation
+									gasStationsData={gasStationsData}
+									deleteGasStation={deleteGasStation}
+									carrousselSettings={carrousselSettings}
+								/>
+							)}
 						</div>
 					</div>
 				</div>
-				<div className="gasStations__container">
-					<h1>Mes stations favorites</h1>
-					<div className="gasStations__details">
-						{gasStationsData.length === 0 ? (
-							<div>Aucune stations d'essences favorites</div>
-						) : (
-							<CarousselGasStation
-								gasStationsData={gasStationsData}
-								deleteGasStation={deleteGasStation}
-								carrousselSettings={carrousselSettings}
-							/>
-						)}
-					</div>
-				</div>
-			</div>
+			) : (
+				<div>Erreur pendant la récupération de l'utilisateur</div>
+			)}
 		</section>
 	);
 }
