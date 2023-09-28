@@ -16,7 +16,7 @@ import {
 	FaAngleLeft
 } from 'react-icons/fa6';
 import defaultAvatar from '../../../public/images/default_avatar.png';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
 	formatDateToFrench,
 	calculateTimeDifference
@@ -31,102 +31,167 @@ import {
 	CarousselGasStationProps
 } from '../../../types/caroussel';
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-	const axiosInstance: AxiosInstance = createAxiosInstance(context);
-	try {
-		const user = await axiosInstance.get('/users/me');
+// export async function getServerSideProps(context: GetServerSidePropsContext) {
+// 	const axiosInstance: AxiosInstance = createAxiosInstance(context);
+// 	try {
+// 		const user = await axiosInstance.get('/users/me');
 
-		const userGasStations = user.data.user.gasStations;
+// 		const userGasStations = user.data.user.gasStations;
 
-		const gasStationsData = await Promise.all(
-			userGasStations.map(async (gasStationId: string) => {
-				try {
-					const response = await axios.get(
-						`https://api.prix-carburants.2aaz.fr/station/${gasStationId}`
-					);
+// 		const gasStationsData = await Promise.all(
+// 			userGasStations.map(async (gasStationId: string) => {
+// 				try {
+// 					const response = await axios.get(
+// 						`https://api.prix-carburants.2aaz.fr/station/${gasStationId}`
+// 					);
 
-					const gasStationDetails = response.data;
+// 					const gasStationDetails = response.data;
 
-					return {
-						id: gasStationDetails.id,
-						address: {
-							street_line: gasStationDetails.Address.street_line,
-							city_line: gasStationDetails.Address.city_line
-						},
-						brand: gasStationDetails.Brand.name,
-						fuels: gasStationDetails.Fuels.map(
-							(fuel: {
-								name: string;
-								Price: { text: string };
-								available: boolean;
-								short_name: string;
-								LastUpdate: {
-									value: string;
-								};
-							}) => ({
-								name: fuel.name,
-								price: fuel.Price.text,
-								available: fuel.available,
-								short_name: fuel.short_name
-							})
-						),
-						lastUpdate: gasStationDetails.LastUpdate.value
-					};
-				} catch (error) {
-					if (axios.isAxiosError(error)) {
-						return {
-							props: {
-								errorMessage:
-									error.response?.data.message ||
-									'Une erreur est survenue'
-							}
-						};
-					}
-				}
-			})
-		);
+// 					return {
+// 						id: gasStationDetails.id,
+// 						address: {
+// 							street_line: gasStationDetails.Address.street_line,
+// 							city_line: gasStationDetails.Address.city_line
+// 						},
+// 						brand: gasStationDetails.Brand.name,
+// 						fuels: gasStationDetails.Fuels.map(
+// 							(fuel: {
+// 								name: string;
+// 								Price: { text: string };
+// 								available: boolean;
+// 								short_name: string;
+// 								LastUpdate: {
+// 									value: string;
+// 								};
+// 							}) => ({
+// 								name: fuel.name,
+// 								price: fuel.Price.text,
+// 								available: fuel.available,
+// 								short_name: fuel.short_name
+// 							})
+// 						),
+// 						lastUpdate: gasStationDetails.LastUpdate.value
+// 					};
+// 				} catch (error) {
+// 					if (axios.isAxiosError(error)) {
+// 						return {
+// 							props: {
+// 								errorMessage:
+// 									error.response?.data.message ||
+// 									'Une erreur est survenue'
+// 							}
+// 						};
+// 					}
+// 				}
+// 			})
+// 		);
 
-		return {
-			props: {
-				user: user.data.user,
-				gasStations: gasStationsData
-			}
-		};
-	} catch (error) {
-		if (axios.isAxiosError(error)) {
-			return {
-				props: {
-					errorMessage: error.response?.data || 'Une erreur est survenue'
-				}
-			};
-		} else {
-			return {
-				props: {
-					errorMessage: 'Une erreur est survenue'
-				}
-			};
-		}
-	}
-}
+// 		return {
+// 			props: {
+// 				user: user.data.user,
+// 				gasStations: gasStationsData
+// 			}
+// 		};
+// 	} catch (error) {
+// 		if (axios.isAxiosError(error)) {
+// 			return {
+// 				props: {
+// 					errorMessage: error.response?.data || 'Une erreur est survenue'
+// 				}
+// 			};
+// 		} else {
+// 			return {
+// 				props: {
+// 					errorMessage: 'Une erreur est survenue'
+// 				}
+// 			};
+// 		}
+// 	}
+// }
 
-export default function Profil({
-	user,
-	errorMessage,
-	gasStations
-}: {
-	user: UserProps;
-	errorMessage: string;
-	gasStations: gasStationProps[];
-}) {
-	const [userData, setUserData] = useState<UserProps>(user);
-	const [gasStationsData, setGasStationData] =
-		useState<gasStationProps[]>(gasStations);
+export default function Profil() {
+	const [userData, setUserData] = useState<UserProps>({
+		id: '',
+		username: '',
+		email: '',
+		password: '',
+		gasStations: [],
+		createdAt: '',
+		updatedAt: ''
+	});
+	const [gasStationsData, setGasStationData] = useState<gasStationProps[]>([]);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
-	toast.error(errorMessage, {
-		pauseOnHover: false,
-		pauseOnFocusLoss: false
-	});
+	useEffect(() => {
+		async function getUserData() {
+			const axiosInstance: AxiosInstance = createAxiosInstance();
+			try {
+				const user = await axiosInstance.get('/users/me');
+
+				const userGasStations = user.data.user.gasStations;
+
+				setUserData(user.data.user);
+
+				const gasStationsData: gasStationProps[] = await Promise.all(
+					userGasStations.map(async (gasStationId: string) => {
+						try {
+							const response = await axios.get(
+								`https://api.prix-carburants.2aaz.fr/station/${gasStationId}`
+							);
+
+							const gasStationDetails = response.data;
+
+							return {
+								id: gasStationDetails.id,
+								address: {
+									street_line: gasStationDetails.Address.street_line,
+									city_line: gasStationDetails.Address.city_line
+								},
+								brand: gasStationDetails.Brand.name,
+								fuels: gasStationDetails.Fuels.map(
+									(fuel: {
+										name: string;
+										Price: { text: string };
+										available: boolean;
+										short_name: string;
+										LastUpdate: {
+											value: string;
+										};
+									}) => ({
+										name: fuel.name,
+										price: fuel.Price.text,
+										available: fuel.available,
+										short_name: fuel.short_name
+									})
+								),
+								lastUpdate: gasStationDetails.LastUpdate.value
+							};
+						} catch (error) {
+							if (axios.isAxiosError(error)) {
+								const errorMessage =
+									error.response?.data || 'Une erreur est survenue';
+								toast.error(errorMessage.toString(), {
+									pauseOnHover: false,
+									pauseOnFocusLoss: false
+								});
+							}
+						}
+					})
+				);
+				setGasStationData(gasStationsData);
+			} catch (error) {
+				if (axios.isAxiosError(error)) {
+					const errorMessage =
+						error.response?.data || 'Une erreur est survenue';
+					toast.error(errorMessage.toString(), {
+						pauseOnHover: false,
+						pauseOnFocusLoss: false
+					});
+				}
+			}
+		}
+		getUserData();
+	}, []);
 
 	const updateValidationSchema: ZodType<UpdateFormData> = z.object({
 		email: z
@@ -220,7 +285,7 @@ export default function Profil({
 
 		try {
 			const response = await axiosInstance.delete(
-				`/users/${user.id}/gasStations`,
+				`/users/${userData.id}/gasStations`,
 				{
 					data: {
 						gasStations: [gasStationId.toString()]
@@ -249,17 +314,15 @@ export default function Profil({
 	async function updateUser(data: UpdateFormData) {
 		const axiosInstance: AxiosInstance = createAxiosInstance();
 
-		const userData: UpdateFormData = {};
+		const userDataUpdate: UpdateFormData = {};
 
 		if (data.email != '') {
-			userData.email = data.email;
+			userDataUpdate.email = data.email;
 		}
 
 		if (data.username != '') {
-			userData.username = data.username;
+			userDataUpdate.username = data.username;
 		}
-
-		console.log(data);
 
 		if (data.email == '' && data.username == '') {
 			toast.error('Les champs ne doivent pas être vide', {
@@ -270,10 +333,10 @@ export default function Profil({
 		}
 
 		try {
-			const newUserData = await axiosInstance.put(`/users/${user.id}`, {
+			const newUserData = await axiosInstance.put(`/users/${userData.id}`, {
 				data: {
-					username: userData?.username,
-					email: userData?.email
+					username: userDataUpdate?.username,
+					email: userDataUpdate?.email
 				}
 			});
 
@@ -315,7 +378,7 @@ export default function Profil({
 				/>
 			)}
 
-			{user ? (
+			{userData ? (
 				<div className="profil__wrapper">
 					<div className="profil__details">
 						<div className="profil__top">
