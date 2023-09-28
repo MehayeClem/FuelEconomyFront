@@ -63,6 +63,8 @@ export default function Login() {
 			Cookies.set('refreshToken', response.data.refreshToken, {
 				expires: 1
 			});
+
+			localStorage.setItem('isConnected', 'true');
 			router.push('/');
 		} catch (error) {
 			if (axios.isAxiosError(error)) {

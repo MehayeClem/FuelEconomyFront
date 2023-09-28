@@ -121,10 +121,18 @@ export default function Profil() {
 		createdAt: '',
 		updatedAt: ''
 	});
+	const [isConnected, setIsConnected] = useState<boolean>(false);
 	const [gasStationsData, setGasStationData] = useState<gasStationProps[]>([]);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	useEffect(() => {
+		if (localStorage.getItem('isConnected') != 'true') {
+			router.push('/');
+			toast.error("Vous n'êtes pas connecté", {
+				pauseOnHover: false,
+				pauseOnFocusLoss: false
+			});
+		}
 		async function getUserData() {
 			const axiosInstance: AxiosInstance = createAxiosInstance();
 			try {
@@ -193,14 +201,6 @@ export default function Profil() {
 			}
 		}
 		getUserData();
-
-		if (userData) {
-			router.push('/');
-			toast.error("Vous n'êtes pas connecté", {
-				pauseOnHover: false,
-				pauseOnFocusLoss: false
-			});
-		}
 	}, []);
 
 	const updateValidationSchema: ZodType<UpdateFormData> = z.object({
