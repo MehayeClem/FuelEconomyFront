@@ -42,6 +42,7 @@ export default function Header() {
 	function handleLogout() {
 		Cookies.remove('accessToken');
 		Cookies.remove('refreshToken');
+		localStorage.clear();
 		router.push('/login');
 	}
 

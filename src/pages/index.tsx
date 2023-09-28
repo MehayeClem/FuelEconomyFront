@@ -382,7 +382,7 @@ export default function Home() {
 				></LeafletMap>
 				<div className="map__infos">
 					{gasStations.length === 0 ? (
-						<div>Aucune stations d'essences sur la carte</div>
+						<div>Aucunes stations d'essences sur la carte</div>
 					) : (
 						<CarousselGasStation
 							gasStationsData={gasStations}

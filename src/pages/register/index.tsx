@@ -43,7 +43,7 @@ export default function Register() {
 		})
 		.refine(data => data.password === data.confirmPassword, {
 			path: ['confirmPassword'],
-			message: 'Les mot de passe ne correspondent pas'
+			message: 'Les mots de passe ne correspondent pas'
 		});
 
 	const formFields: InputFields<RegisterFormData>[] = [

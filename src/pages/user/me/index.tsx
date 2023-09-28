@@ -420,7 +420,7 @@ export default function Profil() {
 						<h1>Mes stations favorites</h1>
 						<div className="gasStations__details">
 							{gasStationsData.length === 0 ? (
-								<div>Aucune stations d'essences favorites</div>
+								<div>Aucunes stations d'essences favorites</div>
 							) : (
 								<CarousselGasStation
 									gasStationsData={gasStationsData}
