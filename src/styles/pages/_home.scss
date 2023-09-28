@@ -128,6 +128,23 @@
 		.leaflet-container {
 			width: 50%;
 			height: 100%;
+
+			.leaflet-popup-tip {
+				background: var(--main-background);
+			}
+
+			.leaflet-popup-close-button {
+				width: 30px;
+				height: 30px;
+				top: 5px;
+				right: 5px;
+				font-size: 2em;
+				color: var(--text-color);
+
+				&:hover {
+					color: var(--error-color);
+				}
+			}
 		}
 
 		.map__infos {

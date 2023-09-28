@@ -1,8 +1,9 @@
 'use client';
 
 import L from 'leaflet';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import MarkerIcon from '../../node_modules/leaflet/dist/images/marker-icon.png';
+import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet';
+import GasStationMarker from '../public/images/GasStationMarker.png';
+import UserMarker from '../public/images/UserMarker.png';
 import MarkerShadow from '../../node_modules/leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/leaflet.css';
 import { MapProps } from '../types/map';
@@ -28,19 +29,39 @@ export default function LeafletMap({
 						url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 					/>
 
+					<Marker
+						icon={
+							new L.Icon({
+								iconUrl: UserMarker.src,
+								iconRetinaUrl: UserMarker.src,
+								iconSize: [48, 48],
+								iconAnchor: [26, 48],
+								tooltipAnchor: [16, -32],
+								popupAnchor: [0, -32],
+								shadowUrl: MarkerShadow.src,
+								shadowSize: [48, 48],
+								shadowAnchor: [16, 48]
+							})
+						}
+						position={center}
+					>
+						<Tooltip>Vous êtes ici</Tooltip>
+					</Marker>
+
 					{gasStations &&
 						gasStations.map(gasStation => (
 							<Marker
 								key={gasStation.id}
 								icon={
 									new L.Icon({
-										iconUrl: MarkerIcon.src,
-										iconRetinaUrl: MarkerIcon.src,
-										iconSize: [16, 32],
-										iconAnchor: [8, 32],
-										popupAnchor: [0, -32],
+										iconUrl: GasStationMarker.src,
+										iconRetinaUrl: GasStationMarker.src,
+										iconSize: [48, 48],
+										iconAnchor: [26, 48],
+										popupAnchor: [0, -48],
 										shadowUrl: MarkerShadow.src,
-										shadowSize: [32, 32]
+										shadowSize: [48, 48],
+										shadowAnchor: [25, 48]
 									})
 								}
 								position={[gasStation.latitude, gasStation.longitude]}

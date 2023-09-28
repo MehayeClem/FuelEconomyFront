@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import axios, { AxiosInstance } from 'axios';
 import {
@@ -41,104 +41,119 @@ export default function Home() {
 	}, []);
 
 	async function handleAroundGasStation() {
-		navigator.geolocation.getCurrentPosition(async position => {
-			const { latitude, longitude } = position.coords;
-			setMapZoom(13);
-			setMapCenter([latitude, longitude]);
-			setIsLoading(true);
+		navigator.geolocation.getCurrentPosition(
+			async position => {
+				const { latitude, longitude } = position.coords;
+				setMapZoom(13);
+				setMapCenter([latitude, longitude]);
+				setIsLoading(true);
 
-			localStorage.setItem('mapZoom', mapZoom.toString());
-			localStorage.setItem(
-				'mapCenter',
-				JSON.stringify([latitude, longitude])
-			);
-			try {
-				const response = await axios.get(
-					`https://api.prix-carburants.2aaz.fr/stations/around/${latitude},${longitude}?responseFields=Fuels,Price`
-				);
-
-				const gasStationsData = response.data;
-
-				const gasStationDetails = gasStationsData.map(
-					(gasStationData: any) => {
-						return {
-							id: gasStationData.id,
-							address: {
-								street_line: gasStationData.Address.street_line,
-								city_line: gasStationData.Address.city_line
-							},
-							brand: gasStationData.Brand.name,
-							fuels: gasStationData.Fuels.map(
-								(fuel: {
-									name: string;
-									Price: { text: string };
-									available: boolean;
-									short_name: string;
-									LastUpdate: {
-										value: string;
-									};
-								}) => ({
-									name: fuel.name,
-									price: fuel.Price.text,
-									available: fuel.available,
-									short_name: fuel.short_name
-								})
-							),
-							lastUpdate: gasStationData.LastUpdate.value,
-							latitude: gasStationData.Coordinates.latitude,
-							longitude: gasStationData.Coordinates.longitude
-						};
-					}
-				);
-
-				// const firstBatch = gasStationsData.slice(0, 5);
-				// const secondBatch = gasStationsData.slice(5);
-
-				// const gasStationDetailsPromises = firstBatch.map(
-				// 	async (gasStation: fullGasStationProps, index: number) => {
-				// 		const delay = index * 500;
-				// 		await new Promise(resolve => setTimeout(resolve, delay));
-				// 		return getGasStationDetails(gasStation.id);
-				// 	}
-				// );
-
-				// const gasStationDetailsFirstBatch = await Promise.all(
-				// 	gasStationDetailsPromises
-				// );
-
-				// await new Promise(resolve => setTimeout(resolve, 10000));
-
-				// const gasStationDetailsSecondBatchPromises = secondBatch.map(
-				// 	async (gasStation: fullGasStationProps, index: number) => {
-				// 		const delay = index * 500;
-				// 		await new Promise(resolve => setTimeout(resolve, delay));
-				// 		return getGasStationDetails(gasStation.id);
-				// 	}
-				// );
-
-				// const gasStationDetailsSecondBatch = await Promise.all(
-				// 	gasStationDetailsSecondBatchPromises
-				// );
-
-				// const gasStationDetails = gasStationDetailsFirstBatch.concat(
-				// 	gasStationDetailsSecondBatch
-				// );
-
-				setGasStations(gasStationDetails);
-				setIsLoading(false);
+				localStorage.setItem('mapZoom', mapZoom.toString());
 				localStorage.setItem(
-					'gasStations',
-					JSON.stringify(gasStationDetails)
+					'mapCenter',
+					JSON.stringify([latitude, longitude])
 				);
-			} catch (error) {
-				if (axios.isAxiosError(error)) {
-					toast.error(error.response?.data || 'Une erreur est survenue', {
+				try {
+					const response = await axios.get(
+						`https://api.prix-carburants.2aaz.fr/stations/around/${latitude},${longitude}?responseFields=Fuels,Price`
+					);
+
+					const gasStationsData = response.data;
+
+					const gasStationDetails = gasStationsData.map(
+						(gasStationData: any) => {
+							return {
+								id: gasStationData.id,
+								address: {
+									street_line: gasStationData.Address.street_line,
+									city_line: gasStationData.Address.city_line
+								},
+								brand: gasStationData.Brand.name,
+								fuels: gasStationData.Fuels.map(
+									(fuel: {
+										name: string;
+										Price: { text: string };
+										available: boolean;
+										short_name: string;
+										LastUpdate: {
+											value: string;
+										};
+									}) => ({
+										name: fuel.name,
+										price: fuel.Price.text,
+										available: fuel.available,
+										short_name: fuel.short_name
+									})
+								),
+								lastUpdate: gasStationData.LastUpdate.value,
+								latitude: gasStationData.Coordinates.latitude,
+								longitude: gasStationData.Coordinates.longitude
+							};
+						}
+					);
+
+					// const firstBatch = gasStationsData.slice(0, 5);
+					// const secondBatch = gasStationsData.slice(5);
+
+					// const gasStationDetailsPromises = firstBatch.map(
+					// 	async (gasStation: fullGasStationProps, index: number) => {
+					// 		const delay = index * 500;
+					// 		await new Promise(resolve => setTimeout(resolve, delay));
+					// 		return getGasStationDetails(gasStation.id);
+					// 	}
+					// );
+
+					// const gasStationDetailsFirstBatch = await Promise.all(
+					// 	gasStationDetailsPromises
+					// );
+
+					// await new Promise(resolve => setTimeout(resolve, 10000));
+
+					// const gasStationDetailsSecondBatchPromises = secondBatch.map(
+					// 	async (gasStation: fullGasStationProps, index: number) => {
+					// 		const delay = index * 500;
+					// 		await new Promise(resolve => setTimeout(resolve, delay));
+					// 		return getGasStationDetails(gasStation.id);
+					// 	}
+					// );
+
+					// const gasStationDetailsSecondBatch = await Promise.all(
+					// 	gasStationDetailsSecondBatchPromises
+					// );
+
+					// const gasStationDetails = gasStationDetailsFirstBatch.concat(
+					// 	gasStationDetailsSecondBatch
+					// );
+
+					setGasStations(gasStationDetails);
+					setIsLoading(false);
+					localStorage.setItem(
+						'gasStations',
+						JSON.stringify(gasStationDetails)
+					);
+				} catch (error) {
+					if (axios.isAxiosError(error)) {
+						toast.error(
+							error.response?.data || 'Une erreur est survenue',
+							{
+								pauseOnHover: false,
+								pauseOnFocusLoss: false
+							}
+						);
+					}
+				}
+			},
+			error => {
+				toast.error(
+					'Une erreur est survenue lors de la récupération de la localisation',
+					{
 						pauseOnHover: false,
 						pauseOnFocusLoss: false
-					});
-				}
-			}
-		});
+					}
+				);
+			},
+			{ enableHighAccuracy: true }
+		);
 	}
 	// async function getGasStationDetails(gasStationId: string) {
 	// 	try {
@@ -271,18 +286,32 @@ export default function Home() {
 		}
 	}
 
-	async function searchGasStation() {
+	async function searchGasStation(query: string) {
 		setIsLoading(true);
+		console.log(query);
 
-		const filteredGasStations = gasStations.filter(
-			(gasStationData: gasStationProps) => {
-				return gasStationData.brand
-					.toLowerCase()
-					.includes(searchTerm.toLowerCase());
-			}
-		);
+		const cachedGasStation = localStorage.getItem('gasStations');
 
-		setGasStations(filteredGasStations);
+		if (cachedGasStation) {
+			const parsedGasStation = JSON.parse(cachedGasStation);
+			const filteredGasStations = parsedGasStation.filter(
+				(gasStationData: gasStationProps) => {
+					return gasStationData.brand
+						.toLowerCase()
+						.includes(query.toLowerCase());
+				}
+			);
+			setGasStations(filteredGasStations);
+		} else {
+			const filteredGasStations = gasStations.filter(
+				(gasStationData: gasStationProps) => {
+					return gasStationData.brand
+						.toLowerCase()
+						.includes(query.toLowerCase());
+				}
+			);
+			setGasStations(filteredGasStations);
+		}
 		setIsLoading(false);
 	}
 
@@ -311,7 +340,7 @@ export default function Home() {
 						<form
 							onSubmit={e => {
 								e.preventDefault();
-								searchGasStation();
+								searchGasStation(e.currentTarget.searchBar.value);
 							}}
 						>
 							<input
@@ -319,15 +348,25 @@ export default function Home() {
 								name="searchBar"
 								id="searchBar"
 								placeholder="Rechercher une station..."
-								value={searchTerm}
 								onChange={e => {
-									setSearchTerm(e.target.value);
+									e.preventDefault();
 									if (e.target.value.trim() === '') {
 										handleAroundGasStation();
 									}
 								}}
 							/>
-							<div className="search__icon" onClick={searchGasStation}>
+							<div
+								className="search__icon"
+								onClick={() =>
+									searchGasStation(
+										(
+											document.getElementById(
+												'searchBar'
+											) as HTMLInputElement
+										).value
+									)
+								}
+							>
 								<FaMagnifyingGlass />
 							</div>
 						</form>

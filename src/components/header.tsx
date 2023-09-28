@@ -52,12 +52,14 @@ export default function Header() {
 	return (
 		<header className="header__container">
 			<div className="header__logo">
-				<Image src={FeLogo} alt="FuelEconomy Logo" priority></Image>
+				<Link href="/">
+					<Image src={FeLogo} alt="FuelEconomy Logo" priority></Image>
+				</Link>
 			</div>
 			<div className={`header__content ${isNavbarOpen ? 'mobile' : ''}`}>
 				<ul className="header__links">
 					<li className="header__link" onClick={handleShowMenu}>
-						<Link href="/">Carte</Link>
+						<Link href="/">Station à Proximité</Link>
 					</li>
 					{userData && (
 						<li className="header__link" onClick={handleShowMenu}>
