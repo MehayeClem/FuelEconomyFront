@@ -30,6 +30,7 @@ import {
 	CarouselSettingsProps,
 	CarousselGasStationProps
 } from '../../../types/caroussel';
+import { useRouter } from 'next/router';
 
 // export async function getServerSideProps(context: GetServerSidePropsContext) {
 // 	const axiosInstance: AxiosInstance = createAxiosInstance(context);
@@ -110,6 +111,7 @@ import {
 // }
 
 export default function Profil() {
+	const router = useRouter();
 	const [userData, setUserData] = useState<UserProps>({
 		id: '',
 		username: '',
@@ -191,6 +193,14 @@ export default function Profil() {
 			}
 		}
 		getUserData();
+
+		if (userData) {
+			router.push('/');
+			toast.error("Vous n'êtes pas connecté", {
+				pauseOnHover: false,
+				pauseOnFocusLoss: false
+			});
+		}
 	}, []);
 
 	const updateValidationSchema: ZodType<UpdateFormData> = z.object({
