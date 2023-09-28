@@ -66,7 +66,7 @@ export default function Header() {
 			<div className={`header__content ${isNavbarOpen ? 'mobile' : ''}`}>
 				<ul className="header__links">
 					<li className="header__link" onClick={handleShowMenu}>
-						<Link href="/">Station à proximité</Link>
+						<Link href="/">Stations à proximité</Link>
 					</li>
 					{userData && (
 						<li className="header__link" onClick={handleShowMenu}>
